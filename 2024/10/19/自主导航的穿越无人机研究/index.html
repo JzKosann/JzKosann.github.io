@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +14,7 @@
         
         
         
-            <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+            <link rel="preconnect" href="https://registry.npmmirror.com" crossorigin>
         
     
     <!--- Seo Part-->
@@ -24,13 +24,13 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="pyTorch-based GateDetector  2024.10.4  MIoU 语义分割指标   IOU，交并比：真实标签和预测值的交和并的比值公式：       MIoU是该数据集中的每一个类的交并比的平均 PijP_{ij}Pij​表示将iii类别预测为jjj类别 MIoU&#x3D;1k+1∑i&#x3D;0kPii∑j&#x3D;0kpij+∑j&#x3D;0kpji−piiMIoU&#x3D;\dfrac{1}{k+1}\su">
+        <meta name="description" content="简介 该篇blog记录了项目《自主导航的穿越无人机研究》的开发全过程，如有想法，欢迎发送邮件或者在github下给我评论。  2024.10.4  MIoU 语义分割指标   IOU，交并比：真实标签和预测值的交和并的比值公式：       MIoU是该数据集中的每一个类的交并比的平均 PijP_{ij}Pij​表示将iii类别预测为jjj类别 MIoU&#x3D;1k+1∑i&#x3D;0kPii∑j&#x3D;0kpij">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于强化学习的穿越机-GateDetector篇">
 <meta property="og:url" content="https://jzkosann.github.io/2024/10/19/%E8%87%AA%E4%B8%BB%E5%AF%BC%E8%88%AA%E7%9A%84%E7%A9%BF%E8%B6%8A%E6%97%A0%E4%BA%BA%E6%9C%BA%E7%A0%94%E7%A9%B6/index.html">
 <meta property="og:site_name" content="JinZ の　Notebook">
-<meta property="og:description" content="pyTorch-based GateDetector  2024.10.4  MIoU 语义分割指标   IOU，交并比：真实标签和预测值的交和并的比值公式：       MIoU是该数据集中的每一个类的交并比的平均 PijP_{ij}Pij​表示将iii类别预测为jjj类别 MIoU&#x3D;1k+1∑i&#x3D;0kPii∑j&#x3D;0kpij+∑j&#x3D;0kpji−piiMIoU&#x3D;\dfrac{1}{k+1}\su">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:description" content="简介 该篇blog记录了项目《自主导航的穿越无人机研究》的开发全过程，如有想法，欢迎发送邮件或者在github下给我评论。  2024.10.4  MIoU 语义分割指标   IOU，交并比：真实标签和预测值的交和并的比值公式：       MIoU是该数据集中的每一个类的交并比的平均 PijP_{ij}Pij​表示将iii类别预测为jjj类别 MIoU&#x3D;1k+1∑i&#x3D;0kPii∑j&#x3D;0kpij">
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://jzkosann.github.io/images/image-20241004223149642.png">
 <meta property="og:image" content="https://jzkosann.github.io/images/image-20241004224956545.png">
 <meta property="og:image" content="https://jzkosann.github.io/images/image-20241006115719284.png">
@@ -53,7 +53,7 @@
 <meta property="og:image" content="https://jzkosann.github.io/images/image-20241016180018787.png">
 <meta property="og:image" content="https://jzkosann.github.io/images/image-20241016182556331.png">
 <meta property="article:published_time" content="2024-10-19T08:13:11.000Z">
-<meta property="article:modified_time" content="2024-10-19T10:32:06.573Z">
+<meta property="article:modified_time" content="2024-10-19T11:01:36.635Z">
 <meta property="article:author" content="JinzZz">
 <meta property="article:tag" content="Deep Learning">
 <meta property="article:tag" content="pyTorch">
@@ -75,7 +75,7 @@
         JinZ の Dev. Blog
     </title>
 
-    <link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/fonts/Chillax/chillax.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/fonts/Chillax/chillax.css">
 
     <!--- Inject Part-->
     
@@ -85,11 +85,11 @@
 
 
     
-        <link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/assets/build/styles.css">
+        <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/assets/build/styles.css">
     
 
-    <link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/fonts/GeistMono/geist-mono.css">
-    <link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/fonts/Geist/geist.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/fonts/GeistMono/geist-mono.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/fonts/Geist/geist.css">
     <!--- Font Part-->
     
     
@@ -99,19 +99,19 @@
     
 
     <script id="hexo-configurations">
-    window.config = {"hostname":"jzkosann.github.io","root":"/","language":"zh-CN"};
+    window.config = {"hostname":"jzkosann.github.io","root":"/","language":"en"};
     window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/Home_banner_image.webp","dark":"/images/Home_banner_image.webp"},"title":"JinzZz の　Dev. Blog","subtitle":{"text":["Welcome to my blog...","Thank you for watching my blog...","Looking forward to exchanging ideas with you..."],"hitokoto":{"enable":false,"show_author":true,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/JzKosann","instagram":null,"zhihu":"https://www.zhihu.com/people/feng-ru-sha-5","twitter":null,"email":"jinzkosann@outlook.com"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.7.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
-    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
     window.data = {"masonry":false};
   </script>
     
     <!--- Fontawesome Part-->
-    <link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/fontawesome/fontawesome.min.css">
-    <link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/fontawesome/brands.min.css">
-    <link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/fontawesome/solid.min.css">
-    <link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/fontawesome/regular.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/fontawesome/regular.min.css">
     
-        <link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/fontawesome/thin.min.css">
+        <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/fontawesome/thin.min.css">
     
     
     
@@ -281,7 +281,7 @@ mjx-container[display="true"] + br {
                                    href="/"
                                         >
                                     <i class="fa-regular fa-house fa-fw"></i>
-                                    首页
+                                    HOME
                                     
                                 </a>
 
@@ -315,7 +315,7 @@ mjx-container[display="true"] + br {
                            href="/"
                         >
                             <span>
-                                首页
+                                HOME
                             </span>
                             
                                 <i class="fa-regular fa-house fa-sm fa-fw"></i>
@@ -334,15 +334,15 @@ mjx-container[display="true"] + br {
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
         <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">2</div>
-        <div class="label text-third-text-color text-sm">标签</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
         <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
-        <div class="label text-third-text-color text-sm">分类</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
         <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">1</div>
-        <div class="label text-third-text-color text-sm">文章</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
     </div>
@@ -390,14 +390,14 @@ mjx-container[display="true"] + br {
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
         <span class="desktop">2024-10-19 16:13:11</span>
         <span class="mobile">2024-10-19 16:13:11</span>
-        <span class="hover-info">创建</span>
+        <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-10-19 18:32:06</span>
-            <span class="mobile">2024-10-19 18:32:06</span>
-            <span class="hover-info">更新</span>
+            <span class="desktop">2024-10-19 19:01:36</span>
+            <span class="mobile">2024-10-19 19:01:36</span>
+            <span class="hover-info">Updated</span>
         </span>
     
 
@@ -438,7 +438,8 @@ mjx-container[display="true"] + br {
 
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <h1 id="pytorch-based-gatedetector"><a class="markdownIt-Anchor" href="#pytorch-based-gatedetector"></a> pyTorch-based GateDetector</h1>
+            <h2 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h2>
+<p>该篇blog记录了项目《自主导航的穿越无人机研究》的开发全过程，如有想法，欢迎发送邮件或者在github下给我评论。</p>
 <h2 id="2024104"><a class="markdownIt-Anchor" href="#2024104"></a> 2024.10.4</h2>
 <h3 id="miou-语义分割指标"><a class="markdownIt-Anchor" href="#miou-语义分割指标"></a> MIoU 语义分割指标</h3>
 <ol>
@@ -637,27 +638,27 @@ GPT给出来的解决方案如下：</p>
             <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
                 <div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> 基于强化学习的穿越机-GateDetector篇</li>
-        <li><strong>作者:</strong> JinzZz</li>
-        <li><strong>创建于
+        <li><strong>Title:</strong> 基于强化学习的穿越机-GateDetector篇</li>
+        <li><strong>Author:</strong> JinzZz</li>
+        <li><strong>Created at
                 :</strong> 2024-10-19 16:13:11</li>
         
             <li>
-                <strong>更新于
-                    :</strong> 2024-10-19 18:32:06
+                <strong>Updated at
+                    :</strong> 2024-10-19 19:01:36
             </li>
         
         <li>
-            <strong>链接:</strong> https://jzkosann.github.io/2024/10/19/自主导航的穿越无人机研究/
+            <strong>Link:</strong> https://jzkosann.github.io/2024/10/19/自主导航的穿越无人机研究/
         </li>
         <li>
             <strong>
-                版权声明:
+                License:
             </strong>
             
 
             
-                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
             
         </li>
     </ul>
@@ -690,7 +691,7 @@ GPT给出来的解决方案如下：</p>
                 <div class="comments-container mt-10 w-full ">
     <div id="comment-anchor" class="w-full h-2.5"></div>
     <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
-        评论
+        Comments
     </div>
     
 
@@ -735,9 +736,9 @@ GPT给出来的解决方案如下：</p>
         <div class="toc-content-container">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <div class="toc-title">目录</div>
+        <div class="toc-title">On this page</div>
         <div class="page-title">基于强化学习的穿越机-GateDetector篇</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pytorch-based-gatedetector"><span class="nav-text"> pyTorch-based GateDetector</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2024104"><span class="nav-text"> 2024.10.4</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#miou-%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E6%8C%87%E6%A0%87"><span class="nav-text"> MIoU 语义分割指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code"><span class="nav-text"> code</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2024106"><span class="nav-text"> 2024.10.6</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0ui"><span class="nav-text"> 新UI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E9%AA%8C%E8%AF%81%E9%9B%86%E5%92%8C%E8%87%AA%E8%B0%83%E6%95%B4%E5%AD%A6%E4%B9%A0%E7%8E%87"><span class="nav-text"> 新增验证集和自调整学习率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B9%E5%8F%98loss%E8%AE%A1%E7%AE%97%E6%96%B9%E5%BC%8F"><span class="nav-text"> 改变Loss计算方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E6%96%B0%E7%82%BC%E4%B8%B9"><span class="nav-text"> 重新炼丹🪄🪄🪄…</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81"><span class="nav-text"> 模型验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2024109"><span class="nav-text"> 2024.10.9</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%97%AE%E9%A2%98"><span class="nav-text"> 思考问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3"><span class="nav-text"> 问题解决</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20241016"><span class="nav-text"> 2024.10.16</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E5%89%8D%E5%9B%BE%E5%83%8F%E9%A2%84%E6%B5%8B%E7%BB%93%E6%9E%9C"><span class="nav-text"> 目前图像预测结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#post-processing-%E5%90%8E%E5%A4%84%E7%90%86"><span class="nav-text"> Post-Processing 后处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20241017"><span class="nav-text"> 2024.10.17</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83"><span class="nav-text"> 一些思考…</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E4%BF%AE%E5%A4%8D%E7%9B%B8%E5%85%B3%E7%9A%84%E7%AE%97%E6%B3%95"><span class="nav-text"> 《图片修复》相关的算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%80%9D%E8%80%83%E4%B8%80"><span class="nav-text"> 关于思考一</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-text"> 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2024104"><span class="nav-text"> 2024.10.4</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#miou-%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E6%8C%87%E6%A0%87"><span class="nav-text"> MIoU 语义分割指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code"><span class="nav-text"> code</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2024106"><span class="nav-text"> 2024.10.6</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0ui"><span class="nav-text"> 新UI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E9%AA%8C%E8%AF%81%E9%9B%86%E5%92%8C%E8%87%AA%E8%B0%83%E6%95%B4%E5%AD%A6%E4%B9%A0%E7%8E%87"><span class="nav-text"> 新增验证集和自调整学习率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B9%E5%8F%98loss%E8%AE%A1%E7%AE%97%E6%96%B9%E5%BC%8F"><span class="nav-text"> 改变Loss计算方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E6%96%B0%E7%82%BC%E4%B8%B9"><span class="nav-text"> 重新炼丹🪄🪄🪄…</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81"><span class="nav-text"> 模型验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2024109"><span class="nav-text"> 2024.10.9</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%97%AE%E9%A2%98"><span class="nav-text"> 思考问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3"><span class="nav-text"> 问题解决</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20241016"><span class="nav-text"> 2024.10.16</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E5%89%8D%E5%9B%BE%E5%83%8F%E9%A2%84%E6%B5%8B%E7%BB%93%E6%9E%9C"><span class="nav-text"> 目前图像预测结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#post-processing-%E5%90%8E%E5%A4%84%E7%90%86"><span class="nav-text"> Post-Processing 后处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20241017"><span class="nav-text"> 2024.10.17</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83"><span class="nav-text"> 一些思考…</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E4%BF%AE%E5%A4%8D%E7%9B%B8%E5%85%B3%E7%9A%84%E7%AE%97%E6%B3%95"><span class="nav-text"> 《图片修复》相关的算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%80%9D%E8%80%83%E4%B8%80"><span class="nav-text"> 关于思考一</span></a></li></ol></li></ol>
 
     </div>
 </div>
@@ -770,7 +771,7 @@ GPT给出来的解决方案如下：</p>
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        共撰写了 1 篇文章
+                        1 posts in total
                     </span>
                     
                 </p>
@@ -781,26 +782,26 @@ GPT给出来的解决方案如下：</p>
             <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
                 
                     <span id="busuanzi_container_site_uv" class="lg:!block">
-                        <span class="text-sm">访问人数</span>
+                        <span class="text-sm">VISITOR COUNT</span>
                         <span id="busuanzi_value_site_uv"></span>
                     </span>
                 
                 
                     <span id="busuanzi_container_site_pv" class="lg:!block">
-                        <span class="text-sm">总访问量</span>
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
                         <span id="busuanzi_value_site_pv"></span>
                     </span>
                 
             </div>
         
         <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
-            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
-            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.7.1</a></span>
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.7.1</a></span>
         </div>
         
         
             <div>
-                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
             </div>
         
         
@@ -901,7 +902,7 @@ GPT给出来的解决方案如下：</p>
 </main>
 
 
-    <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/js/libs/Swup.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/js/libs/SwupSlideTheme.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/js/libs/SwupScriptsPlugin.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/js/libs/SwupProgressPlugin.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/js/libs/SwupScrollPlugin.min.js"></script><script src="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/js/libs/SwupPreloadPlugin.min.js"></script>
+    <script src="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/js/libs/Swup.min.js"></script><script src="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/js/libs/SwupSlideTheme.min.js"></script><script src="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/js/libs/SwupScriptsPlugin.min.js"></script><script src="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/js/libs/SwupProgressPlugin.min.js"></script><script src="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/js/libs/SwupScrollPlugin.min.js"></script><script src="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/js/libs/SwupPreloadPlugin.min.js"></script>
 <script>
     const swup = new Swup({
         plugins: [
@@ -926,27 +927,27 @@ GPT给出来的解决方案如下：</p>
 
 
 
-<script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/js/tools/imageViewer.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/js/utils.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/js/main.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/js/layouts/navbarShrink.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/js/tools/scrollTopBottom.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/js/tools/lightDarkSwitch.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/js/layouts/categoryList.js"></script>
+<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/js/tools/imageViewer.js"></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/js/utils.js"></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/js/main.js"></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/js/layouts/navbarShrink.js"></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/js/tools/scrollTopBottom.js"></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/js/tools/lightDarkSwitch.js"></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/js/layouts/categoryList.js"></script>
 
 
 
 
-    <script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/js/tools/codeBlock.js"></script>
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/js/tools/codeBlock.js"></script>
 
 
 
-    <script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/js/layouts/lazyload.js"></script>
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/js/layouts/lazyload.js"></script>
 
 
 
-    <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/js/tools/runtime.js"></script>
-    <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/js/libs/odometer.min.js"></script>
-    <link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/assets/odometer-theme-minimal.css">
+    <script src="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/js/tools/runtime.js"></script>
+    <script src="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/js/libs/odometer.min.js"></script>
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/assets/odometer-theme-minimal.css">
 
 
 
-  <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/js/libs/Typed.min.js"></script>
-  <script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/js/plugins/typed.js"></script>
+  <script src="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/js/libs/Typed.min.js"></script>
+  <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/js/plugins/typed.js"></script>
 
 
 
@@ -954,12 +955,12 @@ GPT给出来的解决方案如下：</p>
 
 
 
-    <script src="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/js/libs/anime.min.js"></script>
+    <script src="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/js/libs/anime.min.js"></script>
 
 
 <div class="post-scripts" data-swup-reload-script>
     
-        <script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/js/tools/tocToggle.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/js/layouts/toc.js"></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.7.1/source/js/plugins/tabs.js"></script>
+        <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/js/tools/tocToggle.js"></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/js/layouts/toc.js"></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.7.1/files/source/js/plugins/tabs.js"></script>
     
 </div>
 
