@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="The Redefine Team">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://jzkosann.github.io/2024/10/19/自主导航的穿越无人机研究/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="pyTorch GateDetector 工作记录2024.10.4MIoU 语义分割指标 IOU，交并比：真实标签和预测值的交和并的比值公式：    $$ IoU &#x3D; TP &#x2F; (TP+FN+FP) $$  MIoU是该数据集中的每一个类的交并比的平均$$P_{ij}$$表示将$$i$$类别预测为$$j$$类别$$MIoU&#x3D;\dfrac{1}{k+1}\sum\li">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JinZ の　Notebook">
+<meta property="og:url" content="https://jzkosann.github.io/2024/10/19/%E8%87%AA%E4%B8%BB%E5%AF%BC%E8%88%AA%E7%9A%84%E7%A9%BF%E8%B6%8A%E6%97%A0%E4%BA%BA%E6%9C%BA%E7%A0%94%E7%A9%B6/index.html">
+<meta property="og:site_name" content="JinZ の　Notebook">
+<meta property="og:description" content="pyTorch GateDetector 工作记录2024.10.4MIoU 语义分割指标 IOU，交并比：真实标签和预测值的交和并的比值公式：    $$ IoU &#x3D; TP &#x2F; (TP+FN+FP) $$  MIoU是该数据集中的每一个类的交并比的平均$$P_{ij}$$表示将$$i$$类别预测为$$j$$类别$$MIoU&#x3D;\dfrac{1}{k+1}\sum\li">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jzkosann.github.io/images%5Cimage-20241004223149642.png">
+<meta property="og:image" content="https://jzkosann.github.io/images%5Cimage-20241004224956545.png">
+<meta property="og:image" content="https://jzkosann.github.io/images%5Cimage-20241006115719284.png">
+<meta property="og:image" content="c:\Users\ShiF\AppData\Roaming\Typora\typora-user-images\image-20241006122130673.png">
+<meta property="og:image" content="https://jzkosann.github.io/images%5Cimage-20241006122854092.png">
+<meta property="og:image" content="c:\Users\ShiF\AppData\Roaming\Typora\typora-user-images\image-20241006123224797.png">
+<meta property="og:image" content="https://jzkosann.github.io/images%5Cimage-20241006123611891.png">
+<meta property="og:image" content="c:\Users\ShiF\AppData\Roaming\Typora\typora-user-images\image-20241007154047512.png">
+<meta property="og:image" content="https://jzkosann.github.io/images%5Cimg0_20240924_161725.png">
+<meta property="og:image" content="https://jzkosann.github.io/images%5Cimg0_20240924_161725_res.png">
+<meta property="og:image" content="https://jzkosann.github.io/images%5Cimg0_20240924_161728.png">
+<meta property="og:image" content="https://jzkosann.github.io/images%5Cimg0_20240924_161728_res.png">
+<meta property="og:image" content="https://jzkosann.github.io/images%5Cimg0_20240924_161745.png">
+<meta property="og:image" content="https://jzkosann.github.io/images%5Cimg0_20240924_161745_res.png">
+<meta property="og:image" content="https://jzkosann.github.io/images%5Cimage-20241009114919752.png">
+<meta property="og:image" content="https://jzkosann.github.io/images%5Cimg0_20240924_161825_res.png">
+<meta property="og:image" content="https://jzkosann.github.io/images%5Cimage-20241016151111830.png">
+<meta property="og:image" content="https://jzkosann.github.io/images%5Cimage-20241016164624026.png">
+<meta property="og:image" content="https://jzkosann.github.io/images%5Cimage-20241016170244103.png">
+<meta property="og:image" content="https://jzkosann.github.io/images%5Cimage-20241016180018787.png">
+<meta property="og:image" content="https://jzkosann.github.io/images%5Cimage-20241016182556331.png">
+<meta property="article:published_time" content="2024-10-19T07:41:50.316Z">
+<meta property="article:modified_time" content="2024-10-19T08:03:17.673Z">
+<meta property="article:author" content="JinzZz">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jzkosann.github.io/images%5Cimage-20241004223149642.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+        Theme Redefine
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"jzkosann.github.io","root":"/","language":"zh-CN"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"Theme Redefine","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.7.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Theme Redefine
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">2</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3"></h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/redefine-avatar.svg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">The Redefine Team</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv1</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-10-19 15:41:50</span>
+        <span class="mobile">2024-10-19 15:41:50</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-10-19 16:03:17</span>
+            <span class="mobile">2024-10-19 16:03:17</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h1 id="pyTorch-GateDetector-工作记录"><a href="#pyTorch-GateDetector-工作记录" class="headerlink" title="pyTorch GateDetector 工作记录"></a>pyTorch GateDetector 工作记录</h1><h2 id="2024-10-4"><a href="#2024-10-4" class="headerlink" title="2024.10.4"></a>2024.10.4</h2><h3 id="MIoU-语义分割指标"><a href="#MIoU-语义分割指标" class="headerlink" title="MIoU 语义分割指标"></a>MIoU 语义分割指标</h3><ol>
+<li><p>IOU，交并比：真实标签和预测值的交和并的比值<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images%5Cimage-20241004223149642.png"
+                      alt="image-20241004223149642"
+                >公式：    $$ IoU &#x3D; TP &#x2F; (TP+FN+FP) $$</p>
+</li>
+<li><p>MIoU是该数据集中的每一个类的交并比的平均<br>$$P_{ij}$$表示将$$i$$类别预测为$$j$$类别<br>$$<br>MIoU&#x3D;\dfrac{1}{k+1}\sum\limits_{i&#x3D;0}\limits^{k}\dfrac{P_{ii}}{\sum_{j&#x3D;0}^{k}p_{ij}+\sum_{j&#x3D;0}^kp_{ji}-p_{ii}}<br>$$<br>等价于<br>$$<br>MIoU&#x3D;\frac{1}{k+1}\sum\limits_{i&#x3D;0}^k\dfrac{TP}{FN+FP+TP}<br>$$</p>
+</li>
+<li><p>混淆矩阵<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images%5Cimage-20241004224956545.png"
+                      alt="image-20241004224956545"
+                ></p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">产生n×n的分类统计表</span></span><br><span class="line"><span class="string">参数a：标签图（转换为一行输入），即真实的标签</span></span><br><span class="line"><span class="string">参数b：score层输出的预测图（转换为一行输入），即预测的标签</span></span><br><span class="line"><span class="string">参数n:类别数</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fast_hist</span>(<span class="params">a, b, n</span>):</span><br><span class="line">    <span class="comment">#k为掩膜（去除了255这些点（即标签图中的白色的轮廓），其中的a&gt;=0是为了防止bincount()函数出错）</span></span><br><span class="line">    k = (a &gt;= <span class="number">0</span>) &amp; (a &lt; n) </span><br><span class="line">    <span class="keyword">return</span> np.bincount(n * a[k].astype(<span class="built_in">int</span>) + b[k], minlength=n**<span class="number">2</span>).reshape(n, n)</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>利用混淆矩阵计算iou和miou</p>
+<div class="highlight-container" data-rel="Py"><figure class="iseeu highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">per_class_iu</span>(<span class="params"> hist </span>): <span class="comment">#</span></span><br><span class="line">    <span class="comment"># 矩阵的对角线上的值组成的一维数组/矩阵的所有元素之和，返回值形状(n,)</span></span><br><span class="line">    <span class="keyword">return</span> np.diag( hist ) / ( hist.<span class="built_in">sum</span>( <span class="number">1</span> )  + hist.<span class="built_in">sum</span>( <span class="number">0</span> ) - np.diag( hist ))  </span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<h3 id="code"><a href="#code" class="headerlink" title="code"></a>code</h3><ol>
+<li><p>添加合适的自调整学习率</p>
+<div class="highlight-container" data-rel="Py"><figure class="iseeu highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#  定义Adam算法</span></span><br><span class="line">optimizer = optim.Adam(net.parameters(), lr=lr, betas=betas,</span><br><span class="line">                           weight_decay=weight_decay)</span><br><span class="line">scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, <span class="string">&#x27;min&#x27;</span>,</span><br><span class="line">                                                     factor=<span class="number">0.8</span>, patience=<span class="number">15</span>, verbose=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<h2 id="2024-10-6"><a href="#2024-10-6" class="headerlink" title="2024.10.6"></a>2024.10.6</h2><h3 id="新UI"><a href="#新UI" class="headerlink" title="新UI"></a>新UI</h3><p>尝试训练5000 epochs。是个超长的炼丹……🪄<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images%5Cimage-20241006115719284.png"
+                      alt="image-20241006115719284"
+                ><br>但是新UI很好看😍</p>
+<h3 id="新增验证集和自调整学习率"><a href="#新增验证集和自调整学习率" class="headerlink" title="新增验证集和自调整学习率"></a>新增验证集和自调整学习率</h3><p>一般的训练是训练和验证集同时进行，偷懒，之前没有加上，今天左思右思，还是得给加上，虽然既有的test效果很好，但是要做一个严谨的researcher。</p>
+<div class="highlight-container" data-rel="Py"><figure class="iseeu highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 加载训练集和验证集</span></span><br><span class="line">dataset = MyDataLoader(data_path, num_classes=classesnum)</span><br><span class="line">train_size = <span class="built_in">int</span>(<span class="number">0.8</span> * <span class="built_in">len</span>(dataset))</span><br><span class="line">val_size = <span class="built_in">len</span>(dataset) - train_size</span><br><span class="line">train_dataset, val_dataset = random_split(dataset, [train_size, val_size])</span><br><span class="line">train_loader = torch.utils.data.DataLoader(dataset=train_dataset,</span><br><span class="line">                                           batch_size=batch_size,</span><br><span class="line">                                           shuffle=<span class="literal">True</span>)</span><br><span class="line">val_loader = torch.utils.data.DataLoader(dataset=val_dataset,</span><br><span class="line">                                         batch_size=batch_size,</span><br><span class="line">                                         shuffle=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 评估模式（不计算梯度）</span></span><br><span class="line">    net.<span class="built_in">eval</span>()</span><br><span class="line">    val_loss = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        <span class="keyword">for</span> image, label <span class="keyword">in</span> val_loader:</span><br><span class="line">            image = image.to(device=device, dtype=torch.float32)</span><br><span class="line">            label = label.to(device=device, dtype=torch.long)</span><br><span class="line"></span><br><span class="line">            pred = net(image)</span><br><span class="line">            loss = criterion(pred, label)</span><br><span class="line">            val_loss += loss.item()    </span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>然后用验证集每一个epoch的平均loss 调整自学习率。</p>
+<div class="highlight-container" data-rel="Py"><figure class="iseeu highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scheduler.step(avg_val_loss)</span><br></pre></td></tr></table></figure></div>
+
+<p>最后在UI和TensorBoard上加入验证集部分<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\ShiF\AppData\Roaming\Typora\typora-user-images\image-20241006122130673.png"
+                      alt="image-20241006122130673"
+                ><br>更加炫酷😉😉</p>
+<h3 id="改变Loss计算方式"><a href="#改变Loss计算方式" class="headerlink" title="改变Loss计算方式"></a>改变Loss计算方式</h3><p>目前Loss计算方式 交叉熵计算</p>
+<div class="highlight-container" data-rel="Py"><figure class="iseeu highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nn.CrossEntropyLoss()</span><br></pre></td></tr></table></figure></div>
+
+<p>通过学习<em>《pyTorch深度学习实践》</em>，获知<strong>dice loss（骰子损失）</strong>是图像分割惯用的一种计算损失的方式，因此在网上学习。<br>感谢博客（<a class="link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/ljwgis/p/12313047.html" >图像语义分割训练经验总结–图像语义分割 - Rser_ljw - 博客园 (cnblogs.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>）<br>其中对图像分割二分类、多分类问题分别概括了。<br>二分类问题：<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images%5Cimage-20241006122854092.png"
+                      alt="image-20241006122854092"
+                ><br>（ps：因为我的GateDetector是多分类问题，识别门的上、下、左、右，因此跳过二分类问题，这里留下以便后面重温的时候温故而知新)<br>多分类问题：<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\ShiF\AppData\Roaming\Typora\typora-user-images\image-20241006123224797.png"
+                      alt="image-20241006123224797"
+                ><br>这里讲了一些关于多分类问题要注意的点。其中提到了损失函数CELoss的输入输出问题，但是我已经将label以ONE-HOT编码输出了，事实证明不影响Loss的计算。<br>再者就是博客（<a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/jijiarenxiaoyudi/article/details/128360405" >分割网络损失函数总结！交叉熵，Focal loss，Dice，iou，TverskyLoss！_tversky loss-CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>)讲解了Dice Loss的计算应该和CE Loss一起搭配使用<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images%5Cimage-20241006123611891.png"
+                      alt="image-20241006123611891"
+                ></p>
+<p>原作者博客：<a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/Mike_honor/article/details/125871091" >常用损失函数（二）：Dice Loss-CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>骰子损失函数：</p>
+<div class="highlight-container" data-rel="Py"><figure class="iseeu highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">dice_loss</span>(<span class="params">pred, target</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Dice Loss function to compute similarity between the predicted and ground truth segmentation.</span></span><br><span class="line"><span class="string">    :param pred: predicted tensor from the model (N, C, H, W)</span></span><br><span class="line"><span class="string">    :param target: ground truth tensor (N, C, H, W) with class labels</span></span><br><span class="line"><span class="string">    :param smooth: a small constant to avoid division by zero</span></span><br><span class="line"><span class="string">    :return: dice loss value</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    smooth = <span class="number">1e-6</span>  <span class="comment"># 平滑项（避免除以零</span></span><br><span class="line">    pred = F.softmax(pred, dim=<span class="number">1</span>)  <span class="comment"># 转换成类别的概率分布</span></span><br><span class="line">    pred_flat = pred.view(-<span class="number">1</span>).<span class="built_in">float</span>()</span><br><span class="line">    target_flat = target.view(-<span class="number">1</span>).<span class="built_in">float</span>()</span><br><span class="line">    intersection = (pred_flat * target_flat).<span class="built_in">sum</span>()</span><br><span class="line">    dice_score = (<span class="number">2.</span> * intersection + smooth) / (pred_flat.<span class="built_in">sum</span>() + target_flat.<span class="built_in">sum</span>() + smooth)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> - dice_score</span><br></pre></td></tr></table></figure></div>
+
+<p>这里理解了很久</p>
+<div class="highlight-container" data-rel="Py"><figure class="iseeu highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pred = F.softmax(pred,dim=<span class="number">1</span>)</span><br></pre></td></tr></table></figure></div>
+
+<p>这里该以哪种格式来计算Dice Loss，或者说这里的<strong>target_flat</strong>和<strong>pred_flat</strong>该为哪种格式的Tensor，是(N,C,H,W)还是(N,H,W)（后者意味着已经转化为概率最大的索引值来表示的图像了，前者为预测输出的one-hot编码，经过softmax已经转化为概率值了）。<br>突然顿悟：拿概率值来计算Dice Loss相比于后者拿(NHW)转化的图像来计算是否会更加精准呢，意味着一个是拿像素值float计算，一个是拿像素值uint8计算。前者精确到小数点，且表示像素值不需要归一化，因为后者有0、1、2、3、4四个数值来表示类别。<br>加上结合损失函数：（结合了CE Loss和Dice Loss）</p>
+<div class="highlight-container" data-rel="Py"><figure class="iseeu highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">combined_loss</span>(<span class="params">pred, target, alpha=<span class="number">0.5</span></span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Combined loss function: weighted sum of CrossEntropyLoss and Dice Loss.</span></span><br><span class="line"><span class="string">    :param pred: predicted tensor from the model (N, C, H, W)</span></span><br><span class="line"><span class="string">    :param target: ground truth tensor (N, H, W) with class labels</span></span><br><span class="line"><span class="string">    :param alpha: weight factor to balance CrossEntropy and Dice Loss</span></span><br><span class="line"><span class="string">    :return: combined loss value</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    target_indexed = torch.argmax(target, dim=<span class="number">1</span>)  <span class="comment"># 这里是因为交叉熵函数需要输入源标签，其内部自己会转化成one-hot编码格式</span></span><br><span class="line">    ce_loss = nn.CrossEntropyLoss()(pred, target_indexed)</span><br><span class="line">    d_loss = dice_loss(pred, target)</span><br><span class="line">    <span class="keyword">return</span> alpha * ce_loss + (<span class="number">1</span> - alpha) * d_loss</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="重新炼丹🪄🪄🪄…"><a href="#重新炼丹🪄🪄🪄…" class="headerlink" title="重新炼丹🪄🪄🪄…"></a>重新炼丹🪄🪄🪄…</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\ShiF\AppData\Roaming\Typora\typora-user-images\image-20241007154047512.png"
+                      alt="image-20241007154047512"
+                ><br>炼丹完成😍😍😍😍</p>
+<h3 id="模型验证"><a href="#模型验证" class="headerlink" title="模型验证"></a>模型验证</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images%5Cimg0_20240924_161725.png"
+                      alt="img0_20240924_161725"
+                ><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images%5Cimg0_20240924_161725_res.png"
+                      alt="img0_20240924_161725_res"
+                ><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images%5Cimg0_20240924_161728.png"
+                      alt="img0_20240924_161728"
+                ><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images%5Cimg0_20240924_161728_res.png"
+                      alt="img0_20240924_161728_res"
+                ><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images%5Cimg0_20240924_161745.png"
+                      alt="img0_20240924_161745"
+                ><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images%5Cimg0_20240924_161745_res.png"
+                      alt="img0_20240924_161745_res"
+                ></p>
+<h2 id="2024-10-9"><a href="#2024-10-9" class="headerlink" title="2024.10.9"></a>2024.10.9</h2><h3 id="思考问题"><a href="#思考问题" class="headerlink" title="思考问题"></a>思考问题</h3><ol>
+<li>该如何获取图像反馈回来的坐标？<br>plan A：实时获取，通过图像获取像素坐标。使用图像处理算法实时跟踪<br>plan B：第一时间获取，后续进行更新，运用kalman filter滤波后续数据</li>
+</ol>
+<h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><p>返读论文<em>《Champion-level drone racing using deep</em><br><em>reinforcement learning》</em>，其中Methods部分的<strong>VIO drift estimation</strong><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images%5Cimage-20241009114919752.png"
+                      alt="image-20241009114919752"
+                >划线部分再次强调Gate Detector的作用–输出Gate的四角坐标，通过IPPE（<a class="link"   target="_blank" rel="noopener" href="https://github.com/tobycollins/IPPE" >tobycollins&#x2F;IPPE: Infinitesimal Plane-based Pose Estimation (IPPE): A very fast method to compute a camera’s pose from a view of a planar object (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>)来估计相对位置。<br>阅读IPPE文献[Infinitesimal Plane-Based Pose Estimation | International Journal of Computer Vision (springer.com)](<a class="link"   target="_blank" rel="noopener" href="https://link.springer.com/article/10.1007/s11263-014-0725-5#:~:text=We" >https://link.springer.com/article/10.1007/s11263-014-0725-5#:~:text=We <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> call this framework Infinitesimal Plane-based Pose Estimation (IPPE), because)</p>
+<h2 id="2024-10-16"><a href="#2024-10-16" class="headerlink" title="2024.10.16"></a>2024.10.16</h2><blockquote>
+<p>休息了很久，重新开始工作</p>
+</blockquote>
+<h3 id="目前图像预测结果"><a href="#目前图像预测结果" class="headerlink" title="目前图像预测结果"></a>目前图像预测结果</h3><p>目前图像预测结果非常的不稳定<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images%5Cimg0_20240924_161825_res.png"
+                      alt="img0_20240924_161825_res"
+                ><br>图中分割区域非常不完整且不连续，需要进一步对图像处理。<br>GPT给出来的解决方案如下：</p>
+<blockquote>
+<p><em>从这个U-Net预测输出的图像看，有一些分割区域看起来不太完整，可能存在噪声或不连续的分割区域。为了解决这些问题，可以考虑以下方法：</em></p>
+<ol>
+<li><em><strong>后处理（Post-processing）</strong>：</em><ul>
+<li><em><strong>形态学操作</strong>：使用形态学运算，如膨胀、腐蚀、开运算或闭运算，来平滑边界，去除噪声，并填充小的空洞。</em></li>
+<li><em><strong>区域连接分析</strong>：通过识别和保留主要连通区域，去掉孤立的小区域。可以设置一个最小像素数阈值来过滤掉小的噪声区域。</em></li>
+</ul>
+</li>
+<li><em><strong>条件随机场（CRF）</strong>：</em><ul>
+<li><em>可以将条件随机场（CRF）作为后处理步骤，进行边缘修复和细节恢复。CRF能够利用像素的邻域信息，使得边界更加平滑和清晰。</em></li>
+</ul>
+</li>
+<li><em><strong>平滑滤波</strong>：</em><ul>
+<li><em>使用高斯滤波器或中值滤波器对预测图像进行平滑处理，有助于减少随机噪声和不连续性。</em></li>
+</ul>
+</li>
+<li><em><strong>改进U-Net模型</strong>：</em><ul>
+<li><em><strong>多尺度特征融合</strong>：增加多尺度特征融合层，使模型能够更好地处理大小不同的目标。</em></li>
+<li><em><strong>使用更深的U-Net结构</strong>：增加模型深度，提高其捕捉图像细节的能力。</em></li>
+<li><em><strong>添加Attention机制</strong>：引入Attention机制，以便模型能够更关注重要的图像区域，提高分割精度。</em></li>
+</ul>
+</li>
+<li><em><strong>增大训练数据量或增强数据</strong>：</em><ul>
+<li><em>增加训练数据或采用数据增强技术，提高模型在不同情况的泛化能力，从而改善分割质量。</em></li>
+</ul>
+</li>
+</ol>
+<p><em>可以尝试从以上方法中选择合适的方案来优化你的U-Net预测结果。如果需要进一步细化某个具体方法，欢迎继续讨论。</em></p>
+</blockquote>
+<p>接下来，按照整体方案依次对整体框架图像进行处理。</p>
+<h3 id="Post-Processing-后处理"><a href="#Post-Processing-后处理" class="headerlink" title="Post-Processing 后处理"></a>Post-Processing 后处理</h3><h4 id="图像形态学-开运算"><a href="#图像形态学-开运算" class="headerlink" title="图像形态学 - 开运算"></a>图像形态学 - 开运算</h4><p>尝试用了个20*20大小的全1核</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="comment">#灰度图开运算：腐蚀--&gt;膨胀</span></span><br><span class="line">kernel = cv2.getStructuringElement( cv2.MORPH_RECT, (<span class="number">20</span>, <span class="number">20</span>) )</span><br><span class="line">img = cv2.morphologyEx( img, cv2.MORPH_OPEN,kernel )</span><br></pre></td></tr></table></figure></div>
+
+<p>处理效果如下<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images%5Cimage-20241016151111830.png"
+                      alt="image-20241016151111830"
+                >图像对比下来依旧存在几个问题：<br>    1)由于核过大，开运算中腐蚀步骤里，门上面蓝条出现特征丢失的情况。<br>    2)但又由于核不够大，门左右绿黄条依旧存在噪声。<br>    3)核的大小存在一定问题，该如何适当调整核的大小？与神经网络里面的卷积核不同的是，该核是根据预测效果来进行计算，所以不同图像对应的核大小是不同的，所以很难调整。</p>
+<blockquote>
+<p><em><strong>图像处理工程师部分解决意见</strong>：</em></p>
+<ol>
+<li><em><strong>轮廓检测</strong>，勾勒出轮廓线条后可以进行加减操作，将所有偏离圆形轮廓的误识别部分直接剪掉，这里就是接下来要做的</em><em>区域连通域分析**，可以去除图像中孤立的区域</em></li>
+<li><em><strong>全景语义分割</strong>，由于原图像本身就存在极大相似的部分，所以模型识别中就是存在很多预测结果下的失误，可以参考全景语义分割中的技术。</em></li>
+</ol>
+</blockquote>
+<h4 id="区域连通域分析"><a href="#区域连通域分析" class="headerlink" title="区域连通域分析"></a>区域连通域分析</h4><blockquote>
+<p>​	<em>连通区域（Connected Component）一般是指图像中具有相同像素值且位置相邻的前景像素点组成的图像区域（Region，Blob）。连通区域分析（Connected Component Analysis,Connected Component Labeling）是指将图像中的各个连通区域找出并标记。</em><br><em>​	连通区域分析是一种在CVPR和图像分析处理的众多应用领域中较为常用和基本的方法。例如：OCR识别中字符分割提取（车牌识别、文本识别、字幕识别等）、视觉跟踪中的运动前景目标分割与提取（行人入侵检测、遗留物体检测、基于视觉的车辆检测与跟踪等）、医学图像处理（感兴趣目标区域提取）、等等。也就是说，在需要将前景目标提取出来以便后续进行处理的应用场景中都能够用到连通区域分析方法，通常连通区域分析处理的对象是一张二值化后的图像。</em></p>
+</blockquote>
+<p>查阅了多个资料，最终思路：在label图上将不同的label单独分离出来，随后进行轮廓检测，然后计算面积去除小面积的区域。<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images%5Cimage-20241016164624026.png"
+                      alt="image-20241016164624026"
+                >以上为不同阈值下的二值化分割图，接下来对不同图进行加减操作。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images%5Cimage-20241016170244103.png"
+                      alt="image-20241016170244103"
+                >分离出来后的每个label的二值图，随后先做膨胀和高斯平滑，填充部分图内的空缺，进行最大轮廓识别</p>
+<div class="highlight-container" data-rel="Py"><figure class="iseeu highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">getMaxContour</span>(<span class="params">img</span>):</span><br><span class="line">    <span class="comment"># OpenCV定义的结构元素</span></span><br><span class="line">    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (<span class="number">5</span>, <span class="number">5</span>))</span><br><span class="line">    <span class="comment"># 腐蚀图像</span></span><br><span class="line"><span class="comment">#     img = cv2.erode(img, kernel)</span></span><br><span class="line">    <span class="comment"># 膨胀图像</span></span><br><span class="line">    img = cv2.dilate(img, kernel)</span><br><span class="line">    <span class="comment"># 高斯滤波</span></span><br><span class="line">    img = cv2.GaussianBlur(img, (<span class="number">5</span>, <span class="number">5</span>), <span class="number">0</span>)</span><br><span class="line">    contours, hierarchy = cv2.findContours(img,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)</span><br><span class="line">    area=[]</span><br><span class="line">    img_contours = np.zeros([<span class="number">480</span>,<span class="number">640</span>],np.uint8)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(contours)):</span><br><span class="line">        area.append(cv2.contourArea(contours[i]))</span><br><span class="line">    contours_max = np.argmax(np.array(area))</span><br><span class="line">    cv2.drawContours(img_contours,contours,contours_max,<span class="number">255</span>,cv2.FILLED)</span><br><span class="line">    <span class="keyword">return</span> img_contours</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images%5Cimage-20241016180018787.png"
+                      alt="image-20241016180018787"
+                >最后提取出来的图像如上图，最后合并回原图。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images%5Cimage-20241016182556331.png"
+                      alt="image-20241016182556331"
+                >最终结果如上</p>
+<blockquote>
+<p>​	<em>评价：达到主要目的，将穿插的颜色集给分割开，去除了很多噪声，最后合成一个比较不错的结果。</em><br><em>​	问题：</em><br><em>​		1）依旧存在重叠部分带来的问题，如右下角黄色和蓝色重叠处就是不同掩码重叠带来的。</em><br><em>​		2）圆邻接效果差​	问题原因：</em><br><em>​		1）由于将每个边条单独进行了膨胀等图像处理算法，导致边条处理后比原来的要大些，最终在图像合成的时候出现了这个问题。</em><br><em>​	解决方案思考：</em><br><em>​		1）动态的进行连通域处理</em><br><em>​		2）使用其他方法进行处理，有没有一种在某个大区域内把其他颜色给去除掉的方法，比如说右边条中的绿色，直接将其赋值为黄色？探索。。</em>。</p>
+</blockquote>
+<h2 id="2024-10-17"><a href="#2024-10-17" class="headerlink" title="2024.10.17"></a>2024.10.17</h2><h3 id="一些思考…"><a href="#一些思考…" class="headerlink" title="一些思考…"></a>一些思考…</h3><blockquote>
+<p><em>思考1：我能不能计算两个区域的距离，随后进行图像填充</em><br>    <em>具体实现：</em><br>        <em>1）计算label区域内的像素点到另一个区域的像素点的最短距离</em><br>        <em>2）判断该距离是否需要填充像素</em><br>        <em>3）如果需要填充像素，则比较两个区域的大小，优先填充面积小的区域label</em><br><em>思考2：或许我是否能通过计算像素点的最小距离的中值点来确定我需要的坐标点</em></p>
+</blockquote>
+<h3 id="《图片修复》相关的算法"><a href="#《图片修复》相关的算法" class="headerlink" title="《图片修复》相关的算法"></a>《图片修复》相关的算法</h3><p><strong>PatchMatch</strong>图像修复算法</p>
+<blockquote>
+<p><em>链接：</em><br><em>1）<a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/377230002" >解读PatchMatch: A Randomized Correspondence Algorithm for Structural Image Editing - 知乎 (zhihu.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></em><br><em>2）<a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/365675851" >【手撕算法】PatchMatch图像修复算法 - 知乎 (zhihu.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></em><br><em>ps：感觉这类算法并不能解决我现在遇到的问题，因为他需要参考图Mask……</em></p>
+</blockquote>
+<p>提出可能：我是否可以建立Mask？<br>假设：在飞行过程中对门直接整体轮廓识别，随后将预测图<strong>区域连通域分析</strong>的结果和整体轮廓识别后的结果进行图像加减得到Mask图，使用PatchMatch做图像修复。<br>优点：可以保留更多有用<strong>信息</strong>，只需要在单独拆分后先进行<strong>膨胀</strong>和高斯模糊，随后提取<strong>较大面积</strong>的有效轮廓（具体实现方法还需要思考）</p>
+<blockquote>
+<p><em>这个Mask能很好的提取出来吗？或者将<strong>预测图的轮廓</strong>识别出来？</em><br><em>希望CV轮廓识别的算法能够在GPU上运行，这样可以尽可能地减少图像处理时间。</em></p>
+</blockquote>
+<h3 id="关于思考一"><a href="#关于思考一" class="headerlink" title="关于思考一"></a>关于<strong>思考一</strong></h3><p>思考一的<strong>距离检测</strong>能不能拿来做主成分和副成分的筛选，这样就不用无脑删掉处理除最大面积以外的轮廓块。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> </li>
+        <li><strong>作者:</strong> The Redefine Team</li>
+        <li><strong>创建于
+                :</strong> 2024-10-19 15:41:50</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2024-10-19 16:03:17
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://redefine.ohevan.com/2024/10/19/自主导航的穿越无人机研究/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2024/10/18/hello-world/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Hello World</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          recaptchaV3Key: "wasd",
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">目录</div>
+        <div class="page-title"></div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pyTorch-GateDetector-%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95"><span class="nav-text">pyTorch GateDetector 工作记录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2024-10-4"><span class="nav-text">2024.10.4</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MIoU-%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E6%8C%87%E6%A0%87"><span class="nav-text">MIoU 语义分割指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code"><span class="nav-text">code</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2024-10-6"><span class="nav-text">2024.10.6</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0UI"><span class="nav-text">新UI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E9%AA%8C%E8%AF%81%E9%9B%86%E5%92%8C%E8%87%AA%E8%B0%83%E6%95%B4%E5%AD%A6%E4%B9%A0%E7%8E%87"><span class="nav-text">新增验证集和自调整学习率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B9%E5%8F%98Loss%E8%AE%A1%E7%AE%97%E6%96%B9%E5%BC%8F"><span class="nav-text">改变Loss计算方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E6%96%B0%E7%82%BC%E4%B8%B9%F0%9F%AA%84%F0%9F%AA%84%F0%9F%AA%84%E2%80%A6"><span class="nav-text">重新炼丹🪄🪄🪄…</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81"><span class="nav-text">模型验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2024-10-9"><span class="nav-text">2024.10.9</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%97%AE%E9%A2%98"><span class="nav-text">思考问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3"><span class="nav-text">问题解决</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2024-10-16"><span class="nav-text">2024.10.16</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E5%89%8D%E5%9B%BE%E5%83%8F%E9%A2%84%E6%B5%8B%E7%BB%93%E6%9E%9C"><span class="nav-text">目前图像预测结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Post-Processing-%E5%90%8E%E5%A4%84%E7%90%86"><span class="nav-text">Post-Processing 后处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2024-10-17"><span class="nav-text">2024.10.17</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83%E2%80%A6"><span class="nav-text">一些思考…</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E3%80%8A%E5%9B%BE%E7%89%87%E4%BF%AE%E5%A4%8D%E3%80%8B%E7%9B%B8%E5%85%B3%E7%9A%84%E7%AE%97%E6%B3%95"><span class="nav-text">《图片修复》相关的算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%80%9D%E8%80%83%E4%B8%80"><span class="nav-text">关于思考一</span></a></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">The Redefine Team</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 2 篇文章
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.7.1</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/libs/anime.min.js"></script>
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+</body>
+</html>
