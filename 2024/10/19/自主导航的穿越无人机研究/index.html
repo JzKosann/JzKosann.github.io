@@ -18,12 +18,12 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="pyTorch-based GateDetector  2024.10.4  MIoU 语义分割指标   IOU，交并比：真实标签和预测值的交和并的比值公式：    $$ IoU &#x3D; TP &#x2F; (TP+FN+FP) $$   MIoU是该数据集中的每一个类的交并比的平均 P_{ij}$$表示将$$i$$类别预测为$$j$$类别  MIoU&#x3D;\dfrac{1}{k+1}\sum\limits_{i">
+        <meta name="description" content="pyTorch-based GateDetector  2024.10.4  MIoU 语义分割指标   IOU，交并比：真实标签和预测值的交和并的比值公式：       MIoU是该数据集中的每一个类的交并比的平均 PijP_{ij}Pij​表示将iii类别预测为jjj类别 MIoU&#x3D;1k+1∑i&#x3D;0kPii∑j&#x3D;0kpij+∑j&#x3D;0kpji−piiMIoU&#x3D;\dfrac{1}{k+1}\su">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于强化学习的穿越机-GateDetector篇">
 <meta property="og:url" content="https://jzkosann.github.io/2024/10/19/%E8%87%AA%E4%B8%BB%E5%AF%BC%E8%88%AA%E7%9A%84%E7%A9%BF%E8%B6%8A%E6%97%A0%E4%BA%BA%E6%9C%BA%E7%A0%94%E7%A9%B6/index.html">
 <meta property="og:site_name" content="JinZ の　Notebook">
-<meta property="og:description" content="pyTorch-based GateDetector  2024.10.4  MIoU 语义分割指标   IOU，交并比：真实标签和预测值的交和并的比值公式：    $$ IoU &#x3D; TP &#x2F; (TP+FN+FP) $$   MIoU是该数据集中的每一个类的交并比的平均 P_{ij}$$表示将$$i$$类别预测为$$j$$类别  MIoU&#x3D;\dfrac{1}{k+1}\sum\limits_{i">
+<meta property="og:description" content="pyTorch-based GateDetector  2024.10.4  MIoU 语义分割指标   IOU，交并比：真实标签和预测值的交和并的比值公式：       MIoU是该数据集中的每一个类的交并比的平均 PijP_{ij}Pij​表示将iii类别预测为jjj类别 MIoU&#x3D;1k+1∑i&#x3D;0kPii∑j&#x3D;0kpij+∑j&#x3D;0kpji−piiMIoU&#x3D;\dfrac{1}{k+1}\su">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jzkosann.github.io/images/image-20241004223149642.png">
 <meta property="og:image" content="https://jzkosann.github.io/images/image-20241004224956545.png">
@@ -47,7 +47,7 @@
 <meta property="og:image" content="https://jzkosann.github.io/images/image-20241016180018787.png">
 <meta property="og:image" content="https://jzkosann.github.io/images/image-20241016182556331.png">
 <meta property="article:published_time" content="2024-10-19T08:13:11.000Z">
-<meta property="article:modified_time" content="2024-10-19T09:22:09.999Z">
+<meta property="article:modified_time" content="2024-10-19T10:32:06.573Z">
 <meta property="article:author" content="JinzZz">
 <meta property="article:tag" content="Deep Learning">
 <meta property="article:tag" content="pyTorch">
@@ -128,7 +128,119 @@
     
     
     
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 
 <body>
@@ -295,8 +407,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-10-19 17:22:09</span>
-            <span class="mobile">2024-10-19 17:22:09</span>
+            <span class="desktop">2024-10-19 18:32:06</span>
+            <span class="mobile">2024-10-19 18:32:06</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -343,30 +455,21 @@
 <h3 id="miou-语义分割指标"><a class="markdownIt-Anchor" href="#miou-语义分割指标"></a> MIoU 语义分割指标</h3>
 <ol>
 <li>
-<p>IOU，交并比：真实标签和预测值的交和并的比值<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/image-20241004223149642.png"
-                      alt="image-20241004223149642" 
-                >公式：    $$ IoU = TP / (TP+FN+FP) $$</p>
+<p>IOU，交并比：真实标签和预测值的交和并的比值<img lazyload="" src="/images/loading.svg" data-src="/images/image-20241004223149642.png" alt="image-20241004223149642">公式：    <mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="29.094ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 12859.4 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D43C" d="M43 1Q26 1 26 10Q26 12 29 24Q34 43 39 45Q42 46 54 46H60Q120 46 136 53Q137 53 138 54Q143 56 149 77T198 273Q210 318 216 344Q286 624 286 626Q284 630 284 631Q274 637 213 637H193Q184 643 189 662Q193 677 195 680T209 683H213Q285 681 359 681Q481 681 487 683H497Q504 676 504 672T501 655T494 639Q491 637 471 637Q440 637 407 634Q393 631 388 623Q381 609 337 432Q326 385 315 341Q245 65 245 59Q245 52 255 50T307 46H339Q345 38 345 37T342 19Q338 6 332 0H316Q279 2 179 2Q143 2 113 2T65 2T43 1Z"></path></g><g data-mml-node="mi" transform="translate(504,0)"><path data-c="1D45C" d="M201 -11Q126 -11 80 38T34 156Q34 221 64 279T146 380Q222 441 301 441Q333 441 341 440Q354 437 367 433T402 417T438 387T464 338T476 268Q476 161 390 75T201 -11ZM121 120Q121 70 147 48T206 26Q250 26 289 58T351 142Q360 163 374 216T388 308Q388 352 370 375Q346 405 306 405Q243 405 195 347Q158 303 140 230T121 120Z"></path></g><g data-mml-node="mi" transform="translate(989,0)"><path data-c="1D448" d="M107 637Q73 637 71 641Q70 643 70 649Q70 673 81 682Q83 683 98 683Q139 681 234 681Q268 681 297 681T342 682T362 682Q378 682 378 672Q378 670 376 658Q371 641 366 638H364Q362 638 359 638T352 638T343 637T334 637Q295 636 284 634T266 623Q265 621 238 518T184 302T154 169Q152 155 152 140Q152 86 183 55T269 24Q336 24 403 69T501 205L552 406Q599 598 599 606Q599 633 535 637Q511 637 511 648Q511 650 513 660Q517 676 519 679T529 683Q532 683 561 682T645 680Q696 680 723 681T752 682Q767 682 767 672Q767 650 759 642Q756 637 737 637Q666 633 648 597Q646 592 598 404Q557 235 548 205Q515 105 433 42T263 -22Q171 -22 116 34T60 167V183Q60 201 115 421Q164 622 164 628Q164 635 107 637Z"></path></g><g data-mml-node="mo" transform="translate(2033.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(3089.6,0)"><path data-c="1D447" d="M40 437Q21 437 21 445Q21 450 37 501T71 602L88 651Q93 669 101 677H569H659Q691 677 697 676T704 667Q704 661 687 553T668 444Q668 437 649 437Q640 437 637 437T631 442L629 445Q629 451 635 490T641 551Q641 586 628 604T573 629Q568 630 515 631Q469 631 457 630T439 622Q438 621 368 343T298 60Q298 48 386 46Q418 46 427 45T436 36Q436 31 433 22Q429 4 424 1L422 0Q419 0 415 0Q410 0 363 1T228 2Q99 2 64 0H49Q43 6 43 9T45 27Q49 40 55 46H83H94Q174 46 189 55Q190 56 191 56Q196 59 201 76T241 233Q258 301 269 344Q339 619 339 625Q339 630 310 630H279Q212 630 191 624Q146 614 121 583T67 467Q60 445 57 441T43 437H40Z"></path></g><g data-mml-node="mi" transform="translate(3793.6,0)"><path data-c="1D443" d="M287 628Q287 635 230 637Q206 637 199 638T192 648Q192 649 194 659Q200 679 203 681T397 683Q587 682 600 680Q664 669 707 631T751 530Q751 453 685 389Q616 321 507 303Q500 302 402 301H307L277 182Q247 66 247 59Q247 55 248 54T255 50T272 48T305 46H336Q342 37 342 35Q342 19 335 5Q330 0 319 0Q316 0 282 1T182 2Q120 2 87 2T51 1Q33 1 33 11Q33 13 36 25Q40 41 44 43T67 46Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628ZM645 554Q645 567 643 575T634 597T609 619T560 635Q553 636 480 637Q463 637 445 637T416 636T404 636Q391 635 386 627Q384 621 367 550T332 412T314 344Q314 342 395 342H407H430Q542 342 590 392Q617 419 631 471T645 554Z"></path></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(4544.6,0)"><g data-mml-node="mo"><path data-c="2F" d="M423 750Q432 750 438 744T444 730Q444 725 271 248T92 -240Q85 -250 75 -250Q68 -250 62 -245T56 -231Q56 -221 230 257T407 740Q411 750 423 750Z"></path></g></g><g data-mml-node="mo" transform="translate(5044.6,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(5433.6,0)"><path data-c="1D447" d="M40 437Q21 437 21 445Q21 450 37 501T71 602L88 651Q93 669 101 677H569H659Q691 677 697 676T704 667Q704 661 687 553T668 444Q668 437 649 437Q640 437 637 437T631 442L629 445Q629 451 635 490T641 551Q641 586 628 604T573 629Q568 630 515 631Q469 631 457 630T439 622Q438 621 368 343T298 60Q298 48 386 46Q418 46 427 45T436 36Q436 31 433 22Q429 4 424 1L422 0Q419 0 415 0Q410 0 363 1T228 2Q99 2 64 0H49Q43 6 43 9T45 27Q49 40 55 46H83H94Q174 46 189 55Q190 56 191 56Q196 59 201 76T241 233Q258 301 269 344Q339 619 339 625Q339 630 310 630H279Q212 630 191 624Q146 614 121 583T67 467Q60 445 57 441T43 437H40Z"></path></g><g data-mml-node="mi" transform="translate(6137.6,0)"><path data-c="1D443" d="M287 628Q287 635 230 637Q206 637 199 638T192 648Q192 649 194 659Q200 679 203 681T397 683Q587 682 600 680Q664 669 707 631T751 530Q751 453 685 389Q616 321 507 303Q500 302 402 301H307L277 182Q247 66 247 59Q247 55 248 54T255 50T272 48T305 46H336Q342 37 342 35Q342 19 335 5Q330 0 319 0Q316 0 282 1T182 2Q120 2 87 2T51 1Q33 1 33 11Q33 13 36 25Q40 41 44 43T67 46Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628ZM645 554Q645 567 643 575T634 597T609 619T560 635Q553 636 480 637Q463 637 445 637T416 636T404 636Q391 635 386 627Q384 621 367 550T332 412T314 344Q314 342 395 342H407H430Q542 342 590 392Q617 419 631 471T645 554Z"></path></g><g data-mml-node="mo" transform="translate(7110.8,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mi" transform="translate(8111,0)"><path data-c="1D439" d="M48 1Q31 1 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q146 66 215 342T285 622Q285 629 281 629Q273 632 228 634H197Q191 640 191 642T193 659Q197 676 203 680H742Q749 676 749 669Q749 664 736 557T722 447Q720 440 702 440H690Q683 445 683 453Q683 454 686 477T689 530Q689 560 682 579T663 610T626 626T575 633T503 634H480Q398 633 393 631Q388 629 386 623Q385 622 352 492L320 363H375Q378 363 398 363T426 364T448 367T472 374T489 386Q502 398 511 419T524 457T529 475Q532 480 548 480H560Q567 475 567 470Q567 467 536 339T502 207Q500 200 482 200H470Q463 206 463 212Q463 215 468 234T473 274Q473 303 453 310T364 317H309L277 190Q245 66 245 60Q245 46 334 46H359Q365 40 365 39T363 19Q359 6 353 0H336Q295 2 185 2Q120 2 86 2T48 1Z"></path></g><g data-mml-node="mi" transform="translate(8860,0)"><path data-c="1D441" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path></g><g data-mml-node="mo" transform="translate(9970.2,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mi" transform="translate(10970.4,0)"><path data-c="1D439" d="M48 1Q31 1 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q146 66 215 342T285 622Q285 629 281 629Q273 632 228 634H197Q191 640 191 642T193 659Q197 676 203 680H742Q749 676 749 669Q749 664 736 557T722 447Q720 440 702 440H690Q683 445 683 453Q683 454 686 477T689 530Q689 560 682 579T663 610T626 626T575 633T503 634H480Q398 633 393 631Q388 629 386 623Q385 622 352 492L320 363H375Q378 363 398 363T426 364T448 367T472 374T489 386Q502 398 511 419T524 457T529 475Q532 480 548 480H560Q567 475 567 470Q567 467 536 339T502 207Q500 200 482 200H470Q463 206 463 212Q463 215 468 234T473 274Q473 303 453 310T364 317H309L277 190Q245 66 245 60Q245 46 334 46H359Q365 40 365 39T363 19Q359 6 353 0H336Q295 2 185 2Q120 2 86 2T48 1Z"></path></g><g data-mml-node="mi" transform="translate(11719.4,0)"><path data-c="1D443" d="M287 628Q287 635 230 637Q206 637 199 638T192 648Q192 649 194 659Q200 679 203 681T397 683Q587 682 600 680Q664 669 707 631T751 530Q751 453 685 389Q616 321 507 303Q500 302 402 301H307L277 182Q247 66 247 59Q247 55 248 54T255 50T272 48T305 46H336Q342 37 342 35Q342 19 335 5Q330 0 319 0Q316 0 282 1T182 2Q120 2 87 2T51 1Q33 1 33 11Q33 13 36 25Q40 41 44 43T67 46Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628ZM645 554Q645 567 643 575T634 597T609 619T560 635Q553 636 480 637Q463 637 445 637T416 636T404 636Q391 635 386 627Q384 621 367 550T332 412T314 344Q314 342 395 342H407H430Q542 342 590 392Q617 419 631 471T645 554Z"></path></g><g data-mml-node="mo" transform="translate(12470.4,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></p>
 </li>
 <li>
-<p>MIoU是该数据集中的每一个类的交并比的平均</p>
-P_{ij}$$表示将$$i$$类别预测为$$j$$类别
-
-<p>MIoU=\dfrac{1}{k+1}\sum\limits_{i=0}\limits<sup>{k}\dfrac{P_{ii}}{\sum_{j=0}</sup>{k}p_{ij}+\sum_{j=0}^kp_{ji}-p_{ii}}</p>
-<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">等</mi><mi mathvariant="normal">价</mi><mi mathvariant="normal">于</mi></mrow><annotation encoding="application/x-tex">等价于
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0em;vertical-align:0em;"></span><span class="mord cjk_fallback">等</span><span class="mord cjk_fallback">价</span><span class="mord cjk_fallback">于</span></span></span></span></span></p>
-<p>MIoU=\frac{1}{k+1}\sum\limits_{i=0}^k\dfrac{TP}{FN+FP+TP}</p>
-<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow></mrow><annotation encoding="application/x-tex">
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span></span></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/image-20241004224956545.png"
-                      alt="image-20241004224956545" 
-                ></p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">产生n×n的分类统计表</span></span><br><span class="line"><span class="string">参数a：标签图（转换为一行输入），即真实的标签</span></span><br><span class="line"><span class="string">参数b：score层输出的预测图（转换为一行输入），即预测的标签</span></span><br><span class="line"><span class="string">参数n:类别数</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fast_hist</span>(<span class="params">a, b, n</span>):</span><br><span class="line">    <span class="comment">#k为掩膜（去除了255这些点（即标签图中的白色的轮廓），其中的a&gt;=0是为了防止bincount()函数出错）</span></span><br><span class="line">    k = (a &gt;= <span class="number">0</span>) &amp; (a &lt; n) </span><br><span class="line">    <span class="keyword">return</span> np.bincount(n * a[k].astype(<span class="built_in">int</span>) + b[k], minlength=n**<span class="number">2</span>).reshape(n, n)</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p>MIoU是该数据集中的每一个类的交并比的平均<br>
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">P_{ij}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>表示将<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>类别预测为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span>类别</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi><mi>I</mi><mi>o</mi><mi>U</mi><mo>=</mo><mfrac><mn>1</mn><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mi>k</mi></munderover><mfrac><msub><mi>P</mi><mrow><mi>i</mi><mi>i</mi></mrow></msub><mrow><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mi>k</mi></munderover><msub><mi>p</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>+</mo><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>0</mn></mrow><mi>k</mi></munderover><msub><mi>p</mi><mrow><mi>j</mi><mi>i</mi></mrow></msub><mo>−</mo><msub><mi>p</mi><mrow><mi>i</mi><mi>i</mi></mrow></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">MIoU=\dfrac{1}{k+1}\sum\limits_{i=0}\limits^{k}\dfrac{P_{ii}}{\sum_{j=0}^{k}p_{ij}+\sum_{j=0}^kp_{ji}-p_{ii}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.10903em;">U</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.150939em;vertical-align:-1.314826em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693300000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8361130000000003em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3000050000000005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.120992em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9890079999999999em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.43581800000000004em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9890079999999999em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.43581800000000004em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mord mathdefault mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.314826em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>等价于</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi><mi>I</mi><mi>o</mi><mi>U</mi><mo>=</mo><mfrac><mn>1</mn><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mi>k</mi></munderover><mfrac><mrow><mi>T</mi><mi>P</mi></mrow><mrow><mi>F</mi><mi>N</mi><mo>+</mo><mi>F</mi><mi>P</mi><mo>+</mo><mi>T</mi><mi>P</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">MIoU=\frac{1}{k+1}\sum\limits_{i=0}^k\dfrac{TP}{FN+FP+TP}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.10903em;">U</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.1137820000000005em;vertical-align:-1.277669em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693300000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8361130000000003em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3000050000000005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693300000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+</li>
+<li>
+<p>混淆矩阵<br>
+<img lazyload="" src="/images/loading.svg" data-src="/images/image-20241004224956545.png" alt="image-20241004224956545"></p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">产生n×n的分类统计表</span></span><br><span class="line"><span class="string">参数a：标签图（转换为一行输入），即真实的标签</span></span><br><span class="line"><span class="string">参数b：score层输出的预测图（转换为一行输入），即预测的标签</span></span><br><span class="line"><span class="string">参数n:类别数</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fast_hist</span>(<span class="params">a, b, n</span>):</span><br><span class="line">    <span class="comment">#k为掩膜（去除了255这些点（即标签图中的白色的轮廓），其中的a&gt;=0是为了防止bincount()函数出错）</span></span><br><span class="line">    k = (a &gt;= <span class="number">0</span>) &amp; (a &lt; n) </span><br><span class="line">    <span class="keyword">return</span> np.bincount(n * a[k].astype(<span class="built_in">int</span>) + b[k], minlength=n**<span class="number">2</span>).reshape(n, n)</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
 </li>
 <li>
 <p>利用混淆矩阵计算iou和miou</p>
@@ -377,139 +480,69 @@ P_{ij}$$表示将$$i$$类别预测为$$j$$类别
 <ol>
 <li>
 <p>添加合适的自调整学习率</p>
-<div class="highlight-container" data-rel="Py"><figure class="iseeu highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#  定义Adam算法</span></span><br><span class="line">optimizer = optim.Adam(net.parameters(), lr=lr, betas=betas,</span><br><span class="line">                           weight_decay=weight_decay)</span><br><span class="line">scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, <span class="string">&#x27;min&#x27;</span>,</span><br><span class="line">                                                     factor=<span class="number">0.8</span>, patience=<span class="number">15</span>, verbose=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Py"><figure class="iseeu highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#  定义Adam算法</span></span><br><span class="line">optimizer = optim.Adam(net.parameters(), lr=lr, betas=betas,</span><br><span class="line">                           weight_decay=weight_decay)</span><br><span class="line">scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, <span class="string">'min'</span>,</span><br><span class="line">                                                     factor=<span class="number">0.8</span>, patience=<span class="number">15</span>, verbose=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure></div>
 </li>
 </ol>
 <h2 id="2024106"><a class="markdownIt-Anchor" href="#2024106"></a> 2024.10.6</h2>
 <h3 id="新ui"><a class="markdownIt-Anchor" href="#新ui"></a> 新UI</h3>
-<p>尝试训练5000 epochs。是个超长的炼丹…🪄<br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/image-20241006115719284.png"
-                      alt="image-20241006115719284" 
-                ><br />
+<p>尝试训练5000 epochs。是个超长的炼丹…🪄<br>
+<img lazyload="" src="/images/loading.svg" data-src="/images/image-20241006115719284.png" alt="image-20241006115719284"><br>
 但是新UI很好看😍</p>
 <h3 id="新增验证集和自调整学习率"><a class="markdownIt-Anchor" href="#新增验证集和自调整学习率"></a> 新增验证集和自调整学习率</h3>
 <p>一般的训练是训练和验证集同时进行，偷懒，之前没有加上，今天左思右思，还是得给加上，虽然既有的test效果很好，但是要做一个严谨的researcher。</p>
 <div class="highlight-container" data-rel="Py"><figure class="iseeu highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 加载训练集和验证集</span></span><br><span class="line">dataset = MyDataLoader(data_path, num_classes=classesnum)</span><br><span class="line">train_size = <span class="built_in">int</span>(<span class="number">0.8</span> * <span class="built_in">len</span>(dataset))</span><br><span class="line">val_size = <span class="built_in">len</span>(dataset) - train_size</span><br><span class="line">train_dataset, val_dataset = random_split(dataset, [train_size, val_size])</span><br><span class="line">train_loader = torch.utils.data.DataLoader(dataset=train_dataset,</span><br><span class="line">                                           batch_size=batch_size,</span><br><span class="line">                                           shuffle=<span class="literal">True</span>)</span><br><span class="line">val_loader = torch.utils.data.DataLoader(dataset=val_dataset,</span><br><span class="line">                                         batch_size=batch_size,</span><br><span class="line">                                         shuffle=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 评估模式（不计算梯度）</span></span><br><span class="line">    net.<span class="built_in">eval</span>()</span><br><span class="line">    val_loss = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        <span class="keyword">for</span> image, label <span class="keyword">in</span> val_loader:</span><br><span class="line">            image = image.to(device=device, dtype=torch.float32)</span><br><span class="line">            label = label.to(device=device, dtype=torch.long)</span><br><span class="line"></span><br><span class="line">            pred = net(image)</span><br><span class="line">            loss = criterion(pred, label)</span><br><span class="line">            val_loss += loss.item()    </span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
 <p>然后用验证集每一个epoch的平均loss 调整自学习率。</p>
 <div class="highlight-container" data-rel="Py"><figure class="iseeu highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scheduler.step(avg_val_loss)</span><br></pre></td></tr></table></figure></div>
-<p>最后在UI和TensorBoard上加入验证集部分<br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/image-20241006122130673.png"
-                      alt="image-20241006122130673" 
-                ><br />
+<p>最后在UI和TensorBoard上加入验证集部分<br>
+<img lazyload="" src="/images/loading.svg" data-src="/images/image-20241006122130673.png" alt="image-20241006122130673"><br>
 更加炫酷😉😉</p>
 <h3 id="改变loss计算方式"><a class="markdownIt-Anchor" href="#改变loss计算方式"></a> 改变Loss计算方式</h3>
 <p>目前Loss计算方式 交叉熵计算</p>
 <div class="highlight-container" data-rel="Py"><figure class="iseeu highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nn.CrossEntropyLoss()</span><br></pre></td></tr></table></figure></div>
-<p>通过学习*《pyTorch深度学习实践》*，获知**dice loss（骰子损失）**是图像分割惯用的一种计算损失的方式，因此在网上学习。<br />
-感谢博客（<a class="link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/ljwgis/p/12313047.html" >图像语义分割训练经验总结–图像语义分割 - Rser_ljw - 博客园 (cnblogs.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>）<br />
-其中对图像分割二分类、多分类问题分别概括了。<br />
-二分类问题：<br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/image-20241006122854092.png"
-                      alt="image-20241006122854092" 
-                ><br />
-（ps：因为我的GateDetector是多分类问题，识别门的上、下、左、右，因此跳过二分类问题，这里留下以便后面重温的时候温故而知新)<br />
-多分类问题：<br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/image-20241006123224797.png"
-                      alt="image-20241006123224797" 
-                ><br />
-这里讲了一些关于多分类问题要注意的点。其中提到了损失函数CELoss的输入输出问题，但是我已经将label以ONE-HOT编码输出了，事实证明不影响Loss的计算。<br />
-再者就是博客（<a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/jijiarenxiaoyudi/article/details/128360405" >分割网络损失函数总结！交叉熵，Focal loss，Dice，iou，TverskyLoss！_tversky loss-CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>)讲解了Dice Loss的计算应该和CE Loss一起搭配使用<br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/image-20241006123611891.png"
-                      alt="image-20241006123611891" 
-                ></p>
-<p>原作者博客：<a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/Mike_honor/article/details/125871091" >常用损失函数（二）：Dice Loss-CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br />
+<p>通过学习*《pyTorch深度学习实践》*，获知**dice loss（骰子损失）**是图像分割惯用的一种计算损失的方式，因此在网上学习。<br>
+感谢博客（<a class="link" target="_blank" rel="noopener" href="https://www.cnblogs.com/ljwgis/p/12313047.html">图像语义分割训练经验总结–图像语义分割 - Rser_ljw - 博客园 (cnblogs.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>）<br>
+其中对图像分割二分类、多分类问题分别概括了。<br>
+二分类问题：<br>
+<img lazyload="" src="/images/loading.svg" data-src="/images/image-20241006122854092.png" alt="image-20241006122854092"><br>
+（ps：因为我的GateDetector是多分类问题，识别门的上、下、左、右，因此跳过二分类问题，这里留下以便后面重温的时候温故而知新)<br>
+多分类问题：<br>
+<img lazyload="" src="/images/loading.svg" data-src="/images/image-20241006123224797.png" alt="image-20241006123224797"><br>
+这里讲了一些关于多分类问题要注意的点。其中提到了损失函数CELoss的输入输出问题，但是我已经将label以ONE-HOT编码输出了，事实证明不影响Loss的计算。<br>
+再者就是博客（<a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/jijiarenxiaoyudi/article/details/128360405">分割网络损失函数总结！交叉熵，Focal loss，Dice，iou，TverskyLoss！_tversky loss-CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>)讲解了Dice Loss的计算应该和CE Loss一起搭配使用<br>
+<img lazyload="" src="/images/loading.svg" data-src="/images/image-20241006123611891.png" alt="image-20241006123611891"></p>
+<p>原作者博客：<a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/Mike_honor/article/details/125871091">常用损失函数（二）：Dice Loss-CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>
 骰子损失函数：</p>
-<div class="highlight-container" data-rel="Py"><figure class="iseeu highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">dice_loss</span>(<span class="params">pred, target</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Dice Loss function to compute similarity between the predicted and ground truth segmentation.</span></span><br><span class="line"><span class="string">    :param pred: predicted tensor from the model (N, C, H, W)</span></span><br><span class="line"><span class="string">    :param target: ground truth tensor (N, C, H, W) with class labels</span></span><br><span class="line"><span class="string">    :param smooth: a small constant to avoid division by zero</span></span><br><span class="line"><span class="string">    :return: dice loss value</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    smooth = <span class="number">1e-6</span>  <span class="comment"># 平滑项（避免除以零</span></span><br><span class="line">    pred = F.softmax(pred, dim=<span class="number">1</span>)  <span class="comment"># 转换成类别的概率分布</span></span><br><span class="line">    pred_flat = pred.view(-<span class="number">1</span>).<span class="built_in">float</span>()</span><br><span class="line">    target_flat = target.view(-<span class="number">1</span>).<span class="built_in">float</span>()</span><br><span class="line">    intersection = (pred_flat * target_flat).<span class="built_in">sum</span>()</span><br><span class="line">    dice_score = (<span class="number">2.</span> * intersection + smooth) / (pred_flat.<span class="built_in">sum</span>() + target_flat.<span class="built_in">sum</span>() + smooth)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> - dice_score</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Py"><figure class="iseeu highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">dice_loss</span>(<span class="params">pred, target</span>):</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Dice Loss function to compute similarity between the predicted and ground truth segmentation.</span></span><br><span class="line"><span class="string">    :param pred: predicted tensor from the model (N, C, H, W)</span></span><br><span class="line"><span class="string">    :param target: ground truth tensor (N, C, H, W) with class labels</span></span><br><span class="line"><span class="string">    :param smooth: a small constant to avoid division by zero</span></span><br><span class="line"><span class="string">    :return: dice loss value</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    smooth = <span class="number">1e-6</span>  <span class="comment"># 平滑项（避免除以零</span></span><br><span class="line">    pred = F.softmax(pred, dim=<span class="number">1</span>)  <span class="comment"># 转换成类别的概率分布</span></span><br><span class="line">    pred_flat = pred.view(-<span class="number">1</span>).<span class="built_in">float</span>()</span><br><span class="line">    target_flat = target.view(-<span class="number">1</span>).<span class="built_in">float</span>()</span><br><span class="line">    intersection = (pred_flat * target_flat).<span class="built_in">sum</span>()</span><br><span class="line">    dice_score = (<span class="number">2.</span> * intersection + smooth) / (pred_flat.<span class="built_in">sum</span>() + target_flat.<span class="built_in">sum</span>() + smooth)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> - dice_score</span><br></pre></td></tr></table></figure></div>
 <p>这里理解了很久</p>
 <div class="highlight-container" data-rel="Py"><figure class="iseeu highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pred = F.softmax(pred,dim=<span class="number">1</span>)</span><br></pre></td></tr></table></figure></div>
-<p>这里该以哪种格式来计算Dice Loss，或者说这里的<strong>target_flat</strong>和<strong>pred_flat</strong>该为哪种格式的Tensor，是(N,C,H,W)还是(N,H,W)（后者意味着已经转化为概率最大的索引值来表示的图像了，前者为预测输出的one-hot编码，经过softmax已经转化为概率值了）。<br />
-突然顿悟：拿概率值来计算Dice Loss相比于后者拿(NHW)转化的图像来计算是否会更加精准呢，意味着一个是拿像素值float计算，一个是拿像素值uint8计算。前者精确到小数点，且表示像素值不需要归一化，因为后者有0、1、2、3、4四个数值来表示类别。<br />
+<p>这里该以哪种格式来计算Dice Loss，或者说这里的<strong>target_flat</strong>和<strong>pred_flat</strong>该为哪种格式的Tensor，是(N,C,H,W)还是(N,H,W)（后者意味着已经转化为概率最大的索引值来表示的图像了，前者为预测输出的one-hot编码，经过softmax已经转化为概率值了）。<br>
+突然顿悟：拿概率值来计算Dice Loss相比于后者拿(NHW)转化的图像来计算是否会更加精准呢，意味着一个是拿像素值float计算，一个是拿像素值uint8计算。前者精确到小数点，且表示像素值不需要归一化，因为后者有0、1、2、3、4四个数值来表示类别。<br>
 加上结合损失函数：（结合了CE Loss和Dice Loss）</p>
-<div class="highlight-container" data-rel="Py"><figure class="iseeu highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">combined_loss</span>(<span class="params">pred, target, alpha=<span class="number">0.5</span></span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Combined loss function: weighted sum of CrossEntropyLoss and Dice Loss.</span></span><br><span class="line"><span class="string">    :param pred: predicted tensor from the model (N, C, H, W)</span></span><br><span class="line"><span class="string">    :param target: ground truth tensor (N, H, W) with class labels</span></span><br><span class="line"><span class="string">    :param alpha: weight factor to balance CrossEntropy and Dice Loss</span></span><br><span class="line"><span class="string">    :return: combined loss value</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    target_indexed = torch.argmax(target, dim=<span class="number">1</span>)  <span class="comment"># 这里是因为交叉熵函数需要输入源标签，其内部自己会转化成one-hot编码格式</span></span><br><span class="line">    ce_loss = nn.CrossEntropyLoss()(pred, target_indexed)</span><br><span class="line">    d_loss = dice_loss(pred, target)</span><br><span class="line">    <span class="keyword">return</span> alpha * ce_loss + (<span class="number">1</span> - alpha) * d_loss</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Py"><figure class="iseeu highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">combined_loss</span>(<span class="params">pred, target, alpha=<span class="number">0.5</span></span>):</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Combined loss function: weighted sum of CrossEntropyLoss and Dice Loss.</span></span><br><span class="line"><span class="string">    :param pred: predicted tensor from the model (N, C, H, W)</span></span><br><span class="line"><span class="string">    :param target: ground truth tensor (N, H, W) with class labels</span></span><br><span class="line"><span class="string">    :param alpha: weight factor to balance CrossEntropy and Dice Loss</span></span><br><span class="line"><span class="string">    :return: combined loss value</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    target_indexed = torch.argmax(target, dim=<span class="number">1</span>)  <span class="comment"># 这里是因为交叉熵函数需要输入源标签，其内部自己会转化成one-hot编码格式</span></span><br><span class="line">    ce_loss = nn.CrossEntropyLoss()(pred, target_indexed)</span><br><span class="line">    d_loss = dice_loss(pred, target)</span><br><span class="line">    <span class="keyword">return</span> alpha * ce_loss + (<span class="number">1</span> - alpha) * d_loss</span><br></pre></td></tr></table></figure></div>
 <h3 id="重新炼丹"><a class="markdownIt-Anchor" href="#重新炼丹"></a> 重新炼丹🪄🪄🪄…</h3>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/image-20241007154047512.png"
-                      alt="image-20241007154047512" 
-                ><br />
+<p><img lazyload="" src="/images/loading.svg" data-src="/images/image-20241007154047512.png" alt="image-20241007154047512"><br>
 炼丹完成😍😍😍😍</p>
 <h3 id="模型验证"><a class="markdownIt-Anchor" href="#模型验证"></a> 模型验证</h3>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/img0_20240924_161725.png"
-                      alt="img0_20240924_161725" 
-                ><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/img0_20240924_161725_res.png"
-                      alt="img0_20240924_161725_res" 
-                ><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/img0_20240924_161728.png"
-                      alt="img0_20240924_161728" 
-                ><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/img0_20240924_161728_res.png"
-                      alt="img0_20240924_161728_res" 
-                ><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/img0_20240924_161745.png"
-                      alt="img0_20240924_161745" 
-                ><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/img0_20240924_161745_res.png"
-                      alt="img0_20240924_161745_res" 
-                ></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/images/img0_20240924_161725.png" alt="img0_20240924_161725"><img lazyload="" src="/images/loading.svg" data-src="/images/img0_20240924_161725_res.png" alt="img0_20240924_161725_res"><img lazyload="" src="/images/loading.svg" data-src="/images/img0_20240924_161728.png" alt="img0_20240924_161728"><img lazyload="" src="/images/loading.svg" data-src="/images/img0_20240924_161728_res.png" alt="img0_20240924_161728_res"><img lazyload="" src="/images/loading.svg" data-src="/images/img0_20240924_161745.png" alt="img0_20240924_161745"><img lazyload="" src="/images/loading.svg" data-src="/images/img0_20240924_161745_res.png" alt="img0_20240924_161745_res"></p>
 <h2 id="2024109"><a class="markdownIt-Anchor" href="#2024109"></a> 2024.10.9</h2>
 <h3 id="思考问题"><a class="markdownIt-Anchor" href="#思考问题"></a> 思考问题</h3>
 <ol>
-<li>该如何获取图像反馈回来的坐标？<br />
-plan A：实时获取，通过图像获取像素坐标。使用图像处理算法实时跟踪<br />
+<li>该如何获取图像反馈回来的坐标？<br>
+plan A：实时获取，通过图像获取像素坐标。使用图像处理算法实时跟踪<br>
 plan B：第一时间获取，后续进行更新，运用kalman filter滤波后续数据</li>
 </ol>
 <h3 id="问题解决"><a class="markdownIt-Anchor" href="#问题解决"></a> 问题解决</h3>
-<p>返读论文*《Champion-level drone racing using deep*<br />
-<em>reinforcement learning》</em>，其中Methods部分的<strong>VIO drift estimation</strong><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/image-20241009114919752.png"
-                      alt="image-20241009114919752" 
-                >划线部分再次强调Gate Detector的作用–输出Gate的四角坐标，通过IPPE（<a class="link"   target="_blank" rel="noopener" href="https://github.com/tobycollins/IPPE" >tobycollins/IPPE: Infinitesimal Plane-based Pose Estimation (IPPE): A very fast method to compute a camera’s pose from a view of a planar object (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>)来估计相对位置。<br />
-阅读IPPE文献[Infinitesimal Plane-Based Pose Estimation | International Journal of Computer Vision (<a class="link"   target="_blank" rel="noopener" href="http://springer.com" >springer.com <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>)](<a class="link"   target="_blank" rel="noopener" href="https://link.springer.com/article/10.1007/s11263-014-0725-5#:~:text=We" >https://link.springer.com/article/10.1007/s11263-014-0725-5#:~:text=We <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> call this framework Infinitesimal Plane-based Pose Estimation (IPPE), because)</p>
+<p>返读论文*《Champion-level drone racing using deep*<br>
+<em>reinforcement learning》</em>，其中Methods部分的<strong>VIO drift estimation</strong><img lazyload="" src="/images/loading.svg" data-src="/images/image-20241009114919752.png" alt="image-20241009114919752">划线部分再次强调Gate Detector的作用–输出Gate的四角坐标，通过IPPE（<a class="link" target="_blank" rel="noopener" href="https://github.com/tobycollins/IPPE">tobycollins/IPPE: Infinitesimal Plane-based Pose Estimation (IPPE): A very fast method to compute a camera’s pose from a view of a planar object (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>)来估计相对位置。<br>
+阅读IPPE文献[Infinitesimal Plane-Based Pose Estimation | International Journal of Computer Vision (<a class="link" target="_blank" rel="noopener" href="http://springer.com">springer.com <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>)](<a class="link" target="_blank" rel="noopener" href="https://link.springer.com/article/10.1007/s11263-014-0725-5#:~:text=We">https://link.springer.com/article/10.1007/s11263-014-0725-5#:~:text=We <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> call this framework Infinitesimal Plane-based Pose Estimation (IPPE), because)</p>
 <h2 id="20241016"><a class="markdownIt-Anchor" href="#20241016"></a> 2024.10.16</h2>
 <blockquote>
 <p>休息了很久，重新开始工作</p>
 </blockquote>
 <h3 id="目前图像预测结果"><a class="markdownIt-Anchor" href="#目前图像预测结果"></a> 目前图像预测结果</h3>
-<p>目前图像预测结果非常的不稳定<br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/img0_20240924_161825_res.png"
-                      alt="img0_20240924_161825_res" 
-                ><br />
-图中分割区域非常不完整且不连续，需要进一步对图像处理。<br />
+<p>目前图像预测结果非常的不稳定<br>
+<img lazyload="" src="/images/loading.svg" data-src="/images/img0_20240924_161825_res.png" alt="img0_20240924_161825_res"><br>
+图中分割区域非常不完整且不连续，需要进一步对图像处理。<br>
 GPT给出来的解决方案如下：</p>
 <blockquote>
 <p><em>从这个U-Net预测输出的图像看，有一些分割区域看起来不太完整，可能存在噪声或不连续的分割区域。为了解决这些问题，可以考虑以下方法：</em></p>
@@ -550,15 +583,10 @@ GPT给出来的解决方案如下：</p>
 <h4 id="图像形态学-开运算"><a class="markdownIt-Anchor" href="#图像形态学-开运算"></a> 图像形态学 - 开运算</h4>
 <p>尝试用了个20*20大小的全1核</p>
 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="comment">#灰度图开运算：腐蚀--&gt;膨胀</span></span><br><span class="line">kernel = cv2.getStructuringElement( cv2.MORPH_RECT, (<span class="number">20</span>, <span class="number">20</span>) )</span><br><span class="line">img = cv2.morphologyEx( img, cv2.MORPH_OPEN,kernel )</span><br></pre></td></tr></table></figure></div>
-<p>处理效果如下<br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/image-20241016151111830.png"
-                      alt="image-20241016151111830" 
-                >图像对比下来依旧存在几个问题：<br />
-1)由于核过大，开运算中腐蚀步骤里，门上面蓝条出现特征丢失的情况。<br />
-2)但又由于核不够大，门左右绿黄条依旧存在噪声。<br />
+<p>处理效果如下<br>
+<img lazyload="" src="/images/loading.svg" data-src="/images/image-20241016151111830.png" alt="image-20241016151111830">图像对比下来依旧存在几个问题：<br>
+1)由于核过大，开运算中腐蚀步骤里，门上面蓝条出现特征丢失的情况。<br>
+2)但又由于核不够大，门左右绿黄条依旧存在噪声。<br>
 3)核的大小存在一定问题，该如何适当调整核的大小？与神经网络里面的卷积核不同的是，该核是根据预测效果来进行计算，所以不同图像对应的核大小是不同的，所以很难调整。</p>
 <blockquote>
 <p><em><strong>图像处理工程师部分解决意见</strong>：</em></p>
@@ -569,67 +597,47 @@ GPT给出来的解决方案如下：</p>
 </blockquote>
 <h4 id="区域连通域分析"><a class="markdownIt-Anchor" href="#区域连通域分析"></a> 区域连通域分析</h4>
 <blockquote>
-<p>​	<em>连通区域（Connected Component）一般是指图像中具有相同像素值且位置相邻的前景像素点组成的图像区域（Region，Blob）。连通区域分析（Connected Component Analysis,Connected Component Labeling）是指将图像中的各个连通区域找出并标记。</em><br />
+<p>​	<em>连通区域（Connected Component）一般是指图像中具有相同像素值且位置相邻的前景像素点组成的图像区域（Region，Blob）。连通区域分析（Connected Component Analysis,Connected Component Labeling）是指将图像中的各个连通区域找出并标记。</em><br>
 <em>​	连通区域分析是一种在CVPR和图像分析处理的众多应用领域中较为常用和基本的方法。例如：OCR识别中字符分割提取（车牌识别、文本识别、字幕识别等）、视觉跟踪中的运动前景目标分割与提取（行人入侵检测、遗留物体检测、基于视觉的车辆检测与跟踪等）、医学图像处理（感兴趣目标区域提取）、等等。也就是说，在需要将前景目标提取出来以便后续进行处理的应用场景中都能够用到连通区域分析方法，通常连通区域分析处理的对象是一张二值化后的图像。</em></p>
 </blockquote>
-<p>查阅了多个资料，最终思路：在label图上将不同的label单独分离出来，随后进行轮廓检测，然后计算面积去除小面积的区域。<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/image-20241016164624026.png"
-                      alt="image-20241016164624026" 
-                >以上为不同阈值下的二值化分割图，接下来对不同图进行加减操作。<br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/image-20241016170244103.png"
-                      alt="image-20241016170244103" 
-                >分离出来后的每个label的二值图，随后先做膨胀和高斯平滑，填充部分图内的空缺，进行最大轮廓识别</p>
+<p>查阅了多个资料，最终思路：在label图上将不同的label单独分离出来，随后进行轮廓检测，然后计算面积去除小面积的区域。<img lazyload="" src="/images/loading.svg" data-src="/images/image-20241016164624026.png" alt="image-20241016164624026">以上为不同阈值下的二值化分割图，接下来对不同图进行加减操作。<br>
+<img lazyload="" src="/images/loading.svg" data-src="/images/image-20241016170244103.png" alt="image-20241016170244103">分离出来后的每个label的二值图，随后先做膨胀和高斯平滑，填充部分图内的空缺，进行最大轮廓识别</p>
 <div class="highlight-container" data-rel="Py"><figure class="iseeu highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">getMaxContour</span>(<span class="params">img</span>):</span><br><span class="line">    <span class="comment"># OpenCV定义的结构元素</span></span><br><span class="line">    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (<span class="number">5</span>, <span class="number">5</span>))</span><br><span class="line">    <span class="comment"># 腐蚀图像</span></span><br><span class="line"><span class="comment">#     img = cv2.erode(img, kernel)</span></span><br><span class="line">    <span class="comment"># 膨胀图像</span></span><br><span class="line">    img = cv2.dilate(img, kernel)</span><br><span class="line">    <span class="comment"># 高斯滤波</span></span><br><span class="line">    img = cv2.GaussianBlur(img, (<span class="number">5</span>, <span class="number">5</span>), <span class="number">0</span>)</span><br><span class="line">    contours, hierarchy = cv2.findContours(img,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)</span><br><span class="line">    area=[]</span><br><span class="line">    img_contours = np.zeros([<span class="number">480</span>,<span class="number">640</span>],np.uint8)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(contours)):</span><br><span class="line">        area.append(cv2.contourArea(contours[i]))</span><br><span class="line">    contours_max = np.argmax(np.array(area))</span><br><span class="line">    cv2.drawContours(img_contours,contours,contours_max,<span class="number">255</span>,cv2.FILLED)</span><br><span class="line">    <span class="keyword">return</span> img_contours</span><br></pre></td></tr></table></figure></div>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/image-20241016180018787.png"
-                      alt="image-20241016180018787" 
-                >最后提取出来的图像如上图，最后合并回原图。<br />
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/image-20241016182556331.png"
-                      alt="image-20241016182556331" 
-                >最终结果如上</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="/images/image-20241016180018787.png" alt="image-20241016180018787">最后提取出来的图像如上图，最后合并回原图。<br>
+<img lazyload="" src="/images/loading.svg" data-src="/images/image-20241016182556331.png" alt="image-20241016182556331">最终结果如上</p>
 <blockquote>
-<p>​	<em>评价：达到主要目的，将穿插的颜色集给分割开，去除了很多噪声，最后合成一个比较不错的结果。</em><br />
-<em>​	问题：</em><br />
-<em>​		1）依旧存在重叠部分带来的问题，如右下角黄色和蓝色重叠处就是不同掩码重叠带来的。</em><br />
-<em>​		2）圆邻接效果差​	问题原因：</em><br />
-<em>​		1）由于将每个边条单独进行了膨胀等图像处理算法，导致边条处理后比原来的要大些，最终在图像合成的时候出现了这个问题。</em><br />
-<em>​	解决方案思考：</em><br />
-<em>​		1）动态的进行连通域处理</em><br />
+<p>​	<em>评价：达到主要目的，将穿插的颜色集给分割开，去除了很多噪声，最后合成一个比较不错的结果。</em><br>
+<em>​	问题：</em><br>
+<em>​		1）依旧存在重叠部分带来的问题，如右下角黄色和蓝色重叠处就是不同掩码重叠带来的。</em><br>
+<em>​		2）圆邻接效果差​	问题原因：</em><br>
+<em>​		1）由于将每个边条单独进行了膨胀等图像处理算法，导致边条处理后比原来的要大些，最终在图像合成的时候出现了这个问题。</em><br>
+<em>​	解决方案思考：</em><br>
+<em>​		1）动态的进行连通域处理</em><br>
 <em>​		2）使用其他方法进行处理，有没有一种在某个大区域内把其他颜色给去除掉的方法，比如说右边条中的绿色，直接将其赋值为黄色？探索。。</em>。</p>
 </blockquote>
 <h2 id="20241017"><a class="markdownIt-Anchor" href="#20241017"></a> 2024.10.17</h2>
 <h3 id="一些思考"><a class="markdownIt-Anchor" href="#一些思考"></a> 一些思考…</h3>
 <blockquote>
-<p><em>思考1：我能不能计算两个区域的距离，随后进行图像填充</em><br />
-<em>具体实现：</em><br />
-<em>1）计算label区域内的像素点到另一个区域的像素点的最短距离</em><br />
-<em>2）判断该距离是否需要填充像素</em><br />
-<em>3）如果需要填充像素，则比较两个区域的大小，优先填充面积小的区域label</em><br />
+<p><em>思考1：我能不能计算两个区域的距离，随后进行图像填充</em><br>
+<em>具体实现：</em><br>
+<em>1）计算label区域内的像素点到另一个区域的像素点的最短距离</em><br>
+<em>2）判断该距离是否需要填充像素</em><br>
+<em>3）如果需要填充像素，则比较两个区域的大小，优先填充面积小的区域label</em><br>
 <em>思考2：或许我是否能通过计算像素点的最小距离的中值点来确定我需要的坐标点</em></p>
 </blockquote>
 <h3 id="图片修复相关的算法"><a class="markdownIt-Anchor" href="#图片修复相关的算法"></a> 《图片修复》相关的算法</h3>
 <p><strong>PatchMatch</strong>图像修复算法</p>
 <blockquote>
-<p><em>链接：</em><br />
-<em>1）<a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/377230002" >解读PatchMatch: A Randomized Correspondence Algorithm for Structural Image Editing - 知乎 (zhihu.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></em><br />
-<em>2）<a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/365675851" >【手撕算法】PatchMatch图像修复算法 - 知乎 (zhihu.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></em><br />
+<p><em>链接：</em><br>
+<em>1）<a class="link" target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/377230002">解读PatchMatch: A Randomized Correspondence Algorithm for Structural Image Editing - 知乎 (zhihu.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></em><br>
+<em>2）<a class="link" target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/365675851">【手撕算法】PatchMatch图像修复算法 - 知乎 (zhihu.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></em><br>
 <em>ps：感觉这类算法并不能解决我现在遇到的问题，因为他需要参考图Mask…</em></p>
 </blockquote>
-<p>提出可能：我是否可以建立Mask？<br />
-假设：在飞行过程中对门直接整体轮廓识别，随后将预测图<strong>区域连通域分析</strong>的结果和整体轮廓识别后的结果进行图像加减得到Mask图，使用PatchMatch做图像修复。<br />
+<p>提出可能：我是否可以建立Mask？<br>
+假设：在飞行过程中对门直接整体轮廓识别，随后将预测图<strong>区域连通域分析</strong>的结果和整体轮廓识别后的结果进行图像加减得到Mask图，使用PatchMatch做图像修复。<br>
 优点：可以保留更多有用<strong>信息</strong>，只需要在单独拆分后先进行<strong>膨胀</strong>和高斯模糊，随后提取<strong>较大面积</strong>的有效轮廓（具体实现方法还需要思考）</p>
 <blockquote>
-<p><em>这个Mask能很好的提取出来吗？或者将<strong>预测图的轮廓</strong>识别出来？</em><br />
+<p><em>这个Mask能很好的提取出来吗？或者将<strong>预测图的轮廓</strong>识别出来？</em><br>
 <em>希望CV轮廓识别的算法能够在GPU上运行，这样可以尽可能地减少图像处理时间。</em></p>
 </blockquote>
 <h3 id="关于思考一"><a class="markdownIt-Anchor" href="#关于思考一"></a> 关于<strong>思考一</strong></h3>
@@ -648,7 +656,7 @@ GPT给出来的解决方案如下：</p>
         
             <li>
                 <strong>更新于
-                    :</strong> 2024-10-19 17:22:09
+                    :</strong> 2024-10-19 18:32:06
             </li>
         
         <li>
