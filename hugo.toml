@@ -1,0 +1,66 @@
+baseURL = "https://jzkosann.github.io/"
+languageCode = "en-us"
+title = "JinZ の Notebook"
+theme = "PaperMod"
+[pagination]
+  pagerSize = 10
+
+[params]
+  author = "Jinzhong Hong"
+  description = "Recording research & development notes on robotics, deep learning, and control systems."
+  defaultTheme = "auto"
+  ShowReadingTime = true
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = false
+  ShowCodeCopyButtons = true
+  ShowWordCount = false
+  ShowRssButtonInSectionTermList = false
+  UseHugoToc = true
+  math = true
+
+  [params.homeInfoParams]
+    Title = "JinZ の Notebook"
+    Content = "Research & development notes on robotics, deep learning, and control systems."
+
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/JzKosann"
+
+  [[params.socialIcons]]
+    name = "email"
+    url = "mailto:jinzkosann@outlook.com"
+
+[menu]
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 10
+  [[menu.main]]
+    identifier = "archives"
+    name = "Archives"
+    url = "/archives/"
+    weight = 20
+  [[menu.main]]
+    identifier = "tags"
+    name = "Tags"
+    url = "/tags/"
+    weight = 30
+  [[menu.main]]
+    identifier = "search"
+    name = "Search"
+    url = "/search/"
+    weight = 40
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    style = "github"
+    lineNos = false
+    codeFences = true
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]

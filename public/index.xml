@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>JinZ の Notebook</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on JinZ の Notebook</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 30 May 2025 22:57:11 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Research on Autonomous Navigation Systems for Traversing Drones - NMPC Controller</title>
+      <link>http://localhost:1313/posts/nmpc/</link>
+      <pubDate>Fri, 30 May 2025 22:57:11 +0800</pubDate>
+      <guid>http://localhost:1313/posts/nmpc/</guid>
+      <description>Run NMPC Controller in Flightmare</description>
+    </item>
+    <item>
+      <title>基于强化学习的穿越机-GateDetector篇</title>
+      <link>http://localhost:1313/posts/gate-detector/</link>
+      <pubDate>Sat, 19 Oct 2024 16:13:11 +0800</pubDate>
+      <guid>http://localhost:1313/posts/gate-detector/</guid>
+      <description>&lt;h2 id=&#34;简介&#34;&gt;简介&lt;/h2&gt;
+&lt;p&gt;该篇blog记录了项目《自主导航的穿越无人机研究》的开发全过程，如有想法，欢迎发送邮件或者在github下给我评论。&lt;/p&gt;
+&lt;h2 id=&#34;2024104&#34;&gt;2024.10.4&lt;/h2&gt;
+&lt;h3 id=&#34;miou-语义分割指标&#34;&gt;MIoU 语义分割指标&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;IOU，交并比：真实标签和预测值的交和并的比值&lt;img alt=&#34;image-20241004223149642&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/image-20241004223149642.png&#34;&gt;公式：    $$ IoU = TP / (TP+FN+FP) $$&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;MIoU是该数据集中的每一个类的交并比的平均
+$P_{ij}$表示将$i$类别预测为$j$类别
+$$
+MIoU=\dfrac{1}{k+1}\sum\limits_{i=0}\limits^{k}\dfrac{P_{ii}}{\sum_{j=0}^{k}p_{ij}+\sum_{j=0}^kp_{ji}-p_{ii}}
+$$
+等价于
+$$
+MIoU=\frac{1}{k+1}\sum\limits_{i=0}^k\dfrac{TP}{FN+FP+TP}
+$$&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;混淆矩阵
+&lt;img alt=&#34;image-20241004224956545&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/image-20241004224956545.png&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#39;&amp;#39;&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;产生n×n的分类统计表
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;参数a：标签图（转换为一行输入），即真实的标签
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;参数b：score层输出的预测图（转换为一行输入），即预测的标签
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;参数n:类别数
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;fast_hist&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;a&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; b&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; n&lt;span style=&#34;color:#1f2328&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#57606a&#34;&gt;#k为掩膜（去除了255这些点（即标签图中的白色的轮廓），其中的a&amp;gt;=0是为了防止bincount()函数出错）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    k &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;a &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;a &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;lt;&lt;/span&gt; n&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;return&lt;/span&gt; np&lt;span style=&#34;color:#0550ae&#34;&gt;.&lt;/span&gt;bincount&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;n &lt;span style=&#34;color:#0550ae&#34;&gt;*&lt;/span&gt; a&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;k&lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;.&lt;/span&gt;astype&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;int&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;+&lt;/span&gt; b&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;k&lt;span style=&#34;color:#1f2328&#34;&gt;],&lt;/span&gt; minlength&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;n&lt;span style=&#34;color:#0550ae&#34;&gt;**&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;.&lt;/span&gt;reshape&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;n&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; n&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;利用混淆矩阵计算iou和miou&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;per_class_iu&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt; hist &lt;span style=&#34;color:#1f2328&#34;&gt;):&lt;/span&gt; &lt;span style=&#34;color:#57606a&#34;&gt;#&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#57606a&#34;&gt;# 矩阵的对角线上的值组成的一维数组/矩阵的所有元素之和，返回值形状(n,)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;return&lt;/span&gt; np&lt;span style=&#34;color:#0550ae&#34;&gt;.&lt;/span&gt;diag&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt; hist &lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt; hist&lt;span style=&#34;color:#0550ae&#34;&gt;.&lt;/span&gt;sum&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;  &lt;span style=&#34;color:#0550ae&#34;&gt;+&lt;/span&gt; hist&lt;span style=&#34;color:#0550ae&#34;&gt;.&lt;/span&gt;sum&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt; np&lt;span style=&#34;color:#0550ae&#34;&gt;.&lt;/span&gt;diag&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt; hist &lt;span style=&#34;color:#1f2328&#34;&gt;))&lt;/span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;code&#34;&gt;code&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;添加合适的自调整学习率&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;#  定义Adam算法&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;optimizer &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; optim&lt;span style=&#34;color:#0550ae&#34;&gt;.&lt;/span&gt;Adam&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;net&lt;span style=&#34;color:#0550ae&#34;&gt;.&lt;/span&gt;parameters&lt;span style=&#34;color:#1f2328&#34;&gt;(),&lt;/span&gt; lr&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;lr&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; betas&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;betas&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                           weight_decay&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;weight_decay&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;scheduler &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; optim&lt;span style=&#34;color:#0550ae&#34;&gt;.&lt;/span&gt;lr_scheduler&lt;span style=&#34;color:#0550ae&#34;&gt;.&lt;/span&gt;ReduceLROnPlateau&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;optimizer&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#39;min&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                                                     factor&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;0.8&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; patience&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;15&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; verbose&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;True&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;2024106&#34;&gt;2024.10.6&lt;/h2&gt;
+&lt;h3 id=&#34;新ui&#34;&gt;新UI&lt;/h3&gt;
+&lt;p&gt;尝试训练5000 epochs。是个超长的炼丹&amp;hellip;&amp;hellip;🪄
+&lt;img alt=&#34;image-20241006115719284&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/image-20241006115719284.png&#34;&gt;
+但是新UI很好看😍&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>About</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/about/</guid>
+      <description>&lt;h2 id=&#34;hi-im-jinzhong-hong&#34;&gt;Hi, I&amp;rsquo;m Jinzhong Hong&lt;/h2&gt;
+&lt;p&gt;I&amp;rsquo;m a developer focused on robotics, autonomous systems, and deep learning. This blog documents my research and engineering work — mostly notes I wish existed when I was figuring things out.&lt;/p&gt;
+&lt;h3 id=&#34;research-interests&#34;&gt;Research Interests&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Autonomous drone navigation (NMPC, reinforcement learning)&lt;/li&gt;
+&lt;li&gt;Computer vision &amp;amp; semantic segmentation&lt;/li&gt;
+&lt;li&gt;Control systems &amp;amp; optimization&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;projects&#34;&gt;Projects&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Autonomous Traversing Drone&lt;/strong&gt; — Built a gate-detection pipeline using semantic segmentation (U-Net) and an NMPC controller implemented in Flightmare + acados.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;contact&#34;&gt;Contact&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;GitHub: &lt;a href=&#34;https://github.com/JzKosann&#34;&gt;JzKosann&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Email: &lt;a href=&#34;mailto:jinzkosann@outlook.com&#34;&gt;jinzkosann@outlook.com&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>
