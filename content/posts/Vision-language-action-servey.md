@@ -1,6 +1,6 @@
 +++
 date = '2026-05-21T20:25:34+09:00'
-draft = true
+draft = false
 title = 'Vision Language Action Servey'
 math = true
 +++
