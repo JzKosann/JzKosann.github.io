@@ -10,7 +10,7 @@ I'm a developer focused on robotics, autonomous systems, and deep learning. This
 
 ### Education 🎓
 
-I am currently pursuing my **Master's degree** at the **Graduate School of Information Science and Technology**, **The University of Tokyo**, conducting research in the (**Dynamical Systems and Control Laboratory**)[http://www.ynl.t.u-tokyo.ac.jp/wp/].
+I am currently pursuing my **Master's degree** at the **Graduate School of Information Science and Technology**, **The University of Tokyo**, conducting research in the [**Dynamical Systems and Control Laboratory**](http://www.ynl.t.u-tokyo.ac.jp/wp/).
 
 ### Research Interests
 
