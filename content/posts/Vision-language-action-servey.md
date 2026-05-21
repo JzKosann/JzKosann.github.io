@@ -91,7 +91,7 @@ All my research in this blog depend on paper [A Survey on Vision-Language-Action
 
 #### Visual Trajectory
 
-直接在像素空间(**pixel space** $\mathbf{I}\in \mathbb{R}^{H\times W \times 3}\space \text{or}\space \mathbf{I}\in \mathbb{R} ^ {T\times H \times W\times 3}$)生成一条路径。输出的是一个可以将预期动作视觉描绘出来的图片或者视频。可以通过布置点序列到观测帧上或者生成视频流让可视化曲线实体化。可解释性给到夯爆了。
+直接在像素空间(pixel space $\mathbf{I}\in \mathbb{R}^{H\times W \times 3}\space \text{or}\space \mathbf{I}\in \mathbb{R} ^ {T\times H \times W\times 3}$)生成一条路径。输出的是一个可以将预期动作视觉描绘出来的图片或者视频。可以通过布置点序列到观测帧上或者生成视频流让可视化曲线实体化。可解释性给到夯爆了。
 
 ##### Key Papers 
 
@@ -101,7 +101,7 @@ All my research in this blog depend on paper [A Survey on Vision-Language-Action
 
 #### Optical Flow
 
-表现的是更密集的表达，公式化为一个动作场(`motion field $\mathbf{I} \in\mathbb{R}^{H\times W \times 2}$`)。这个场描述的是两帧之间的动作，捕捉整个场景的整体动态性。可以对复杂的、多目标的交互进行显式建模。
+表现的是更密集的表达，公式化为一个动作场(motion field $\mathbf{I} \in\mathbb{R}^{H\times W \times 2}$)。这个场描述的是两帧之间的动作，捕捉整个场景的整体动态性。可以对复杂的、多目标的交互进行显式建模。
 
 ##### Key Papers
 
