@@ -9,159 +9,359 @@ math: true
 description: "Run NMPC Controller in Flightmare"
 ---
 
-## Quadratic Optimization: The Core Idea
+# Quadratic Optimization: The Core Idea
 
-At its heart, quadratic optimization seeks to minimize a quadratic objective function. In its general form, it often appears as:
+At its heart, quadratic optimization seeks to minimize a quadratic objective function.
+
+In its general form:
+
 $$
-\begin{bmatrix}z_1\\z_2\\\vdots\\z_n\end{bmatrix}^T
-\begin{bmatrix}q_1&&&\\&q_2&&\\&&\ddots&\\&&&q_n\end{bmatrix}
-\begin{bmatrix}z_1\\z_2\\\vdots\\z_n\end{bmatrix}
+\begin{bmatrix}
+z_1\\
+z_2\\
+\vdots\\
+z_n
+\end{bmatrix} ^ T
+\begin{bmatrix}
+q_1 & 0 & 0 &\\
+0 & q_2 & 0 & 0 \\
+0 & 0 &\ddots & 0\\
+0 & 0 & 0 & q_n
+\end{bmatrix}
+\begin{bmatrix}
+z_1\\
+z_2\\
+\vdots\\
+z_n
+\end{bmatrix}
 =
-q_1z_1^2+q_2z^2_2 + \dots + q_nz_n^2
+q_1z_1^2 + q_2z_2^2 + \dots + q_nz_n^2
 \tag{1}
 $$
+
 This structure forms the backbone of many optimization problems, including those in Model Predictive Control (MPC).
 
-## Building the MPC Quadratic Programming Model
+---
 
-Consider a dynamic system governed by the linear state-space equation: $x(k+1)=Ax(k)+Bu(k)$.
-To implement Model Predictive Control, we define the system's states and inputs over a future prediction horizon.
+# Building the MPC Quadratic Programming Model
 
-At a given time $k$, and looking ahead $N$ prediction intervals, the system's states are stacked into a vector:
+Consider a dynamic system governed by:
+
 $$
-X_k = \begin{bmatrix}x(k|k)\\x(k+1|k)\\...\\x(k+N|k)\end{bmatrix}
+x(k+1)=Ax(k)+Bu(k)
+$$
+
+To implement MPC, we define the future states and inputs over a prediction horizon.
+
+At time \(k\), the stacked state vector is:
+
+$$
+X_k =
+\begin{bmatrix}
+x(k|k)\\
+x(k+1|k)\\
+\vdots\\
+x(k+N|k)
+\end{bmatrix}
 \tag{2}
 $$
-Similarly, the corresponding sequence of control inputs over the same horizon is:
+
+The stacked control input vector is:
+
 $$
-U_k=\begin{bmatrix}u(k|k)\\u(k+1|k)\\...\\u(k+N-1|k)\end{bmatrix}
+U_k =
+\begin{bmatrix}
+u(k|k)\\
+u(k+1|k)\\
+\vdots\\
+u(k+N-1|k)
+\end{bmatrix}
 \tag{3}
 $$
-Here, $N$ represents the **prediction horizon**, indicating how many future time steps we predict from the current time $k$.
 
-The performance of the system is quantified by a **Cost Function**, typically a sum of quadratic terms that penalize deviations from desired states and excessive control effort:
+Here, \(N\) represents the prediction horizon.
+
+---
+
+# Cost Function
+
+The cost function is defined as:
+
 $$
-J=\sum^{N-1}_{i=0}(E(k+i|k)^TQE(k+i|k)+u(k+i|k)^TRu(k+i|k))
-+x(k+N)^TFx(k+N)\\
+J=
+\sum_{i=0}^{N-1}
+\left(
+E(k+i|k)^TQE(k+i|k)
++
+u(k+i|k)^TRu(k+i|k)
+\right)
++
+x(k+N)^TFx(k+N)
 \tag{4}
 $$
-In many control problems, the system's output $y$ is directly equivalent to its state $x$. If our reference $R$ is set to zero (i.e., we aim for the states to converge to zero), then the error $E$ simplifies to $E=y-R=x-0=x$.
-Under this simplification, the Cost Function $J$ can be rewritten as:
+
+If the reference is zero, then:
+
 $$
-J=\sum^{N-1}_{i=0}(x(k+i|k)^TQx(k+i|k)+u(k+i|k)^TRu(k+i|k))
-+x(k+N)^TFx(k+N)\\
+E = x
+$$
+
+Thus, the cost function becomes:
+
+$$
+J=
+\sum_{i=0}^{N-1}
+\left(
+x(k+i|k)^TQx(k+i|k)
++
+u(k+i|k)^TRu(k+i|k)
+\right)
++
+x(k+N)^TFx(k+N)
 \tag{5}
 $$
-The matrices $Q$, $R$, and $F$ play crucial roles in shaping the control behavior:
 
-**Error Weight Matrix $Q$**: This diagonal matrix assigns weights to the state variables. A higher value $q_j$ in $Q$ signifies that the $j$-th state variable is more critical, and its deviation from the reference should be penalized more heavily.
+---
+
+## Error Weight Matrix \(Q\)
+
+The matrix \(Q\) penalizes state error:
+
 $$
-Q=\begin{bmatrix}q_1&&\\&\ddots&\\&&q_N\end{bmatrix}\\
+Q=
+\begin{bmatrix}
+q_1 &&\\
+&\ddots &\\
+&& q_N
+\end{bmatrix}
 \tag{6}
 $$
 
-**Input Weight Matrix $R$**: Similarly, this diagonal matrix penalizes the control inputs. A larger $r_j$ means that the $j$-th input should be applied more sparingly, promoting smoother control actions and preventing excessive actuator wear.
+Larger values indicate stronger penalties on state deviation.
+
+---
+
+## Input Weight Matrix \(R\)
+
+The matrix \(R\) penalizes control effort:
+
 $$
-R=\begin{bmatrix}r_1&&\\&\ddots&\\&&r_N\end{bmatrix}\\
+R=
+\begin{bmatrix}
+r_1 &&\\
+&\ddots &\\
+&& r_N
+\end{bmatrix}
 \tag{7}
 $$
 
-> The term $x(k+N)^TFx(k+N)$ in Equation (4) is known as the **terminal error**. It penalizes the state at the very end of the prediction horizon, ensuring that the system is guided towards a desirable final state within the predicted window. For a deeper understanding of terminal weights, refer to: [【模型预测控制】笔记 （一）终端权重的由来 - 知乎](https://zhuanlan.zhihu.com/p/399207343).
+Larger values lead to smoother control actions.
 
-## Derivation: From States to an Optimization Problem
+---
 
-### Expressing All Predicted States Using the Initial State and Control Inputs
+> The term \(x(k+N)^TFx(k+N)\) is called the terminal cost.
 
-Starting from the system's dynamics $x(k+1)=Ax(k)+Bu(k)$, and considering the stacked state $X_k$ and input $U_k$ vectors, we can project the future states:
+---
+
+# Derivation: From States to Optimization
+
+## Predicting Future States
+
+Starting from:
+
+$$
+x(k+1)=Ax(k)+Bu(k)
+$$
+
+The future states can be expanded as:
+
 $$
 \begin{cases}
-x(k|k)= x(k)\\
+x(k|k)=x(k)\\
 x(k+1|k)=Ax(k|k)+Bu(k|k)\\
-x(k+2|k)=A^2x(k|k)+Bu(k+1|k)+ABu(k|k)\\
+x(k+2|k)=A^2x(k|k)+ABu(k|k)+Bu(k+1|k)\\
 \vdots\\
-x(k+N|k)=A^Nx(k|k)+Bu(k+N-1|k)+ABu(k+N-2|k)+\cdots+A^{N-1}Bu(k|k)\\
+x(k+N|k)=A^Nx(k|k)+\cdots+A^{N-1}Bu(k|k)
 \end{cases}
 \tag{8}
 $$
-These relationships can be compactly expressed in matrix form by defining $M$ and $C$ matrices:
+
+Define:
+
 $$
-M=\begin{bmatrix}I\\A\\A^2\\...\\A^N\end{bmatrix} \quad \text{and} \quad C=\begin{bmatrix}0&0&0&\dots &0\\B&0&0&\cdots &0\\AB&B&0&\cdots &0\\A^2B&AB&B&\cdots &0\\\vdots &\vdots &\vdots &\ddots &\vdots \\A^{N-1}B&A^{N-2}B&\cdots&\cdots&B\end{bmatrix}
+M=
+\begin{bmatrix}
+I\\
+A\\
+A^2\\
+\vdots\\
+A^N
+\end{bmatrix}
 $$
-With these matrices, the stacked future states $X(k)$ can be elegantly represented as a function of the current state $x(k)$ and the future control inputs $U(k)$:
+
+and
+
 $$
-X(k)=Mx(k)+CU(k)\\
+C=
+\begin{bmatrix}
+0 & 0 & \cdots & 0\\
+B & 0 & \cdots & 0\\
+AB & B & \cdots & 0\\
+A^2B & AB & \cdots & 0\\
+\vdots & \vdots & \ddots & \vdots\\
+A^{N-1}B & A^{N-2}B & \cdots & B
+\end{bmatrix}
+$$
+
+Then:
+
+$$
+X(k)=Mx(k)+CU(k)
 \tag{9}
 $$
 
-### Computing the Cost Function for All Predicted States
+---
 
-Substituting the expression for $X(k)$ from (9) into the cost function (5), we can transform $J$ into a quadratic form primarily dependent on the control inputs $U(k)$:
-$$
-J=X(k)^T\mathbf{Q}X(k)+U(k)^T\mathbf{R}U(k)\tag{10}
-$$
-Here, $\mathbf{Q}$ is a block diagonal matrix of size $(\text{number of state variables} \times \text{prediction horizon}) \times (\text{number of state variables} \times \text{prediction horizon})$, built from the individual $Q$ matrices and $F$ for the terminal state. Similarly, $\mathbf{R}$ is a block diagonal matrix of size $(\text{number of input variables} \times \text{prediction horizon}) \times (\text{number of input variables} \times \text{prediction horizon})$, constructed from the individual $R$ matrices.
+# Computing the Cost Function
 
-Combining (9) and (10), the new cost function $J$ takes the standard quadratic programming form:
+Substituting Equation (9) into the cost function:
+
+$$
+J=
+X(k)^T\mathbf{Q}X(k)
++
+U(k)^T\mathbf{R}U(k)
+\tag{10}
+$$
+
+The optimization problem becomes:
+
 $$
 \begin{cases}
-J=x(k)^TGx(k)+2x(k)^TEU(k)+U(k)^THU(k)\\
-G=M^T\mathbf{Q}M\\
-E=M^T\mathbf{Q}C\\
-H=C^T\mathbf{Q}C + \mathbf{R}\\
+J=
+x(k)^TGx(k)
++
+2x(k)^TEU(k)
++
+U(k)^THU(k)
+\\
+G=M^T\mathbf{Q}M
+\\
+E=M^T\mathbf{Q}C
+\\
+H=C^T\mathbf{Q}C+\mathbf{R}
 \end{cases}
 \tag{11}
 $$
 
-## Constraint Functions: Navigating the Solution Space
+---
 
-In addition to the objective function, MPC problems often involve constraints on states and inputs. These can be categorized into equality and inequality constraints.
+# Constraint Functions
 
-### Equality Constraints: Leveraging Lagrange Multipliers
+## Equality Constraints
 
-For a quadratic programming problem with a performance index:
+Consider the quadratic objective:
+
 $$
-J=\frac{1}{2} u^T H u + u^T f
+J=
+\frac{1}{2}u^THu + u^Tf
 \tag{12}
 $$
-Subject to linear equality constraints:
+
+subject to:
+
 $$
-M_{eq}u = b_{eq}
+M_{eq}u=b_{eq}
 \tag{13}
 $$
-where $M_{eq}$ is an $m \times n$ matrix, and $b_{eq}$ is an $m \times 1$ vector.
 
-To solve this problem, we introduce an $m \times 1$ vector of **Lagrange multipliers** $\lambda$. These multipliers allow us to incorporate the constraints directly into the objective function, forming an augmented Lagrangian:
-$$J_L=\frac{1}{2}u^THu + u^Tf +\lambda ^T (M_{eq}u-b_{eq}) \tag{14}$$
-To find the optimal solution, we take the partial derivatives of $J_L$ with respect to $u$ and $\lambda$, and set them to zero:
+Using Lagrange multipliers:
+
 $$
-\frac{\partial J_L}{\partial u} = Hu+f+M_{eq}^T\lambda = 0 \\
-\frac{\partial J_L}{\partial \lambda} = M_{eq}u-b_{eq}=0
+J_L=
+\frac{1}{2}u^THu
++
+u^Tf
++
+\lambda^T(M_{eq}u-b_{eq})
+\tag{14}
+$$
+
+Taking derivatives:
+
+$$
+\begin{aligned}
+\frac{\partial J_L}{\partial u}
+&=
+Hu+f+M_{eq}^T\lambda
+=
+0
+\\
+\frac{\partial J_L}{\partial \lambda}
+&=
+M_{eq}u-b_{eq}
+=
+0
+\end{aligned}
 \tag{15}
 $$
-These equations can be concisely expressed in matrix form:
+
+This leads to:
+
 $$
-\begin{bmatrix}H & M_{eq}^T \\ M_{eq}& 0 \end{bmatrix}
-\begin{bmatrix}u\\\lambda \end{bmatrix}
+\begin{bmatrix}
+H & M_{eq}^T\\
+M_{eq} & 0
+\end{bmatrix}
+\begin{bmatrix}
+u\\
+\lambda
+\end{bmatrix}
 =
-\begin{bmatrix}-f\\b_{eq}\end{bmatrix}
+\begin{bmatrix}
+-f\\
+b_{eq}
+\end{bmatrix}
 \tag{16}
 $$
-Assuming the KKT (Karush-Kuhn-Tucker) matrix $\begin{bmatrix}H & M_{eq}^T \\ M_{eq}& 0 \end{bmatrix}$ from (16) is invertible, we can directly solve for the optimal control input $u^*$ and the Lagrange multipliers $\lambda^*$:
+
+Finally:
+
 $$
-\begin{bmatrix}u^*\\ \lambda^* \end{bmatrix}
+\begin{bmatrix}
+u^*\\
+\lambda^*
+\end{bmatrix}
 =
-\begin{bmatrix}H_{n \times n} & M_{eq_{n \times m}}^T \\ M_{eq_{m\times n}}& 0 \end{bmatrix}^{-1}
-\begin{bmatrix}-f_{n\times 1}\\b_{eq_{m \times 1}}\end{bmatrix}
+\begin{bmatrix}
+H & M_{eq}^T\\
+M_{eq} & 0
+\end{bmatrix}^{-1}
+\begin{bmatrix}
+-f\\
+b_{eq}
+\end{bmatrix}
 \tag{17}
 $$
 
-### Inequality Constraints: The Realm of Numerical Methods and Commercial Software
+---
 
-For problems involving inequality constraints, direct analytical solutions become significantly more complex. In practice, these are typically handled using:
+# Inequality Constraints
 
-* **Numerical Optimization Algorithms:** Specialized algorithms are designed to solve quadratic programs with inequality constraints.
+For inequality constraints, analytical solutions become difficult.
 
-## Control it in simulator
-youtube video👇
+In practice, these are solved using:
 
-[![video](/NMPC_img/video_index.png)](https://youtu.be/0tH68vLpp1M)
+- Numerical optimization algorithms
+- Quadratic programming solvers
+- Commercial optimization software
+
+---
+
+# Control in Simulator
+
+YouTube video 👇
+
+<a href="https://youtu.be/0tH68vLpp1M">
+  <img src="/NMPC_img/video_index.png" width="700">
+</a>
