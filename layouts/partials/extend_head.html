@@ -12,3 +12,133 @@
     throwOnError: false
   });"></script>
 {{ end }}
+
+<style>
+/* ── Sidebar layout ─────────────────────────────────────────── */
+@media (min-width: 1280px) {
+  .main:has(.post-sidebar) {
+    max-width: calc(var(--main-width) + var(--gap) * 2 + 300px);
+  }
+
+  /* hide inline TOC on wide screens — sidebar already shows it */
+  .post-layout.has-sidebar details.toc {
+    display: none;
+  }
+
+  .post-layout.has-sidebar {
+    display: flex;
+    align-items: flex-start;
+    gap: calc(var(--gap) * 2);
+  }
+
+  .post-layout.has-sidebar .post-single {
+    flex: 1;
+    min-width: 0;
+    max-width: var(--main-width);
+  }
+
+  .post-sidebar {
+    width: 240px;
+    flex-shrink: 0;
+    position: sticky;
+    top: calc(var(--header-height) + var(--gap));
+    max-height: calc(100vh - var(--header-height) - var(--gap) * 2);
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+}
+
+@media (max-width: 1279px) {
+  .post-sidebar { display: none; }
+}
+
+/* ── Sidebar sections ───────────────────────────────────────── */
+.sidebar-section {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin-bottom: var(--gap);
+  background: var(--code-bg);
+}
+
+[data-theme="dark"] .sidebar-section {
+  background: var(--entry);
+}
+
+.sidebar-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--secondary);
+  margin-bottom: 10px;
+}
+
+.sidebar-description {
+  font-size: 13px;
+  color: var(--secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Sidebar TOC ────────────────────────────────────────────── */
+.sidebar-toc-nav nav {
+  font-size: 13px;
+}
+
+.sidebar-toc-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-toc-nav li {
+  margin: 0;
+  line-height: 1;
+}
+
+.sidebar-toc-nav a {
+  display: block;
+  padding: 4px 0 4px 0;
+  color: var(--secondary);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  padding-left: 8px;
+  transition: color 0.15s, border-color 0.15s;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.sidebar-toc-nav a:hover,
+.sidebar-toc-nav a.active {
+  color: var(--primary);
+  border-left-color: var(--primary);
+}
+
+/* Indent nested TOC levels */
+.sidebar-toc-nav ul ul a { padding-left: 20px; font-size: 12px; }
+.sidebar-toc-nav ul ul ul a { padding-left: 32px; }
+</style>
+
+<script>
+/* Highlight active TOC link based on scroll position */
+document.addEventListener('DOMContentLoaded', () => {
+  const tocLinks = document.querySelectorAll('.sidebar-toc-nav a');
+  if (!tocLinks.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const id = entry.target.id;
+      const link = document.querySelector(`.sidebar-toc-nav a[href="#${id}"]`);
+      if (!link) return;
+      if (entry.isIntersecting) {
+        tocLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-10% 0px -80% 0px' });
+
+  document.querySelectorAll('.post-content h1[id], .post-content h2[id], .post-content h3[id], .post-content h4[id]')
+    .forEach(h => observer.observe(h));
+});
+</script>

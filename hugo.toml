@@ -17,6 +17,8 @@ theme = "PaperMod"
   ShowWordCount = false
   ShowRssButtonInSectionTermList = false
   UseHugoToc = true
+  ShowToc = true
+  TocOpen = true
   math = true
 
   [params.homeInfoParams]
@@ -57,6 +59,11 @@ theme = "PaperMod"
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+    [markup.goldmark.extensions.passthrough]
+      enable = true
+      [markup.goldmark.extensions.passthrough.delimiters]
+        block  = [["$$", "$$"]]
+        inline = [["$", "$"], ["\\(", "\\)"], ["\\[", "\\]"]]
   [markup.highlight]
     style = "github"
     lineNos = false
